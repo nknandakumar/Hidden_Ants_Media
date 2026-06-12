@@ -61,10 +61,10 @@ export default function Hero() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-normal tracking-tight text-text-primary leading-[1.05]">
+          <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-6xl font-normal tracking-tight text-text-primary leading-[1.05]">
             Digital Growth Partner
             <br />
-            <span className="text-text-secondary">for Businesses That Want </span> <br/>
+            <span className="text-text-secondary">for Businesses That Want </span> 
             <span className="font-instrument italic text-accent-yellow block sm:inline mt-1 sm:mt-0">
               More Customers
             </span>
@@ -96,14 +96,14 @@ export default function Hero() {
       </div>
 
       {/* Right Side: Full Screen Height Staggered Video Marquee */}
-      <div className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center bg-bg-secondary thin-border-l z-10">
+      <div className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center  z-10">
         <div className="grid grid-cols-2 gap-4 w-full h-full px-4 lg:px-6 py-0">
           
           {/* Left Column Marquee (Videos 1 & 2 duplicated for seamless loop) - Scrolls Upwards */}
           <div className="w-full h-full overflow-hidden relative">
             <motion.div
               animate={{ y: ["0%", "-50%"] }}
-              transition={{ ease: "linear", duration: 9, repeat: Infinity }}
+              transition={{ ease: "linear", duration: 20, repeat: Infinity }}
               className="space-y-4 py-4 flex flex-col"
             >
               <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
@@ -126,7 +126,7 @@ export default function Hero() {
           <div className="w-full h-full overflow-hidden relative">
             <motion.div
               animate={{ y: ["-50%", "0%"] }}
-              transition={{ ease: "linear", duration: 1, repeat: Infinity }}
+              transition={{ ease: "linear", duration: 20, repeat: Infinity }}
               className="space-y-4 py-4 flex flex-col"
             >
               {/* Duplicates */}

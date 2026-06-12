@@ -44,13 +44,13 @@ export default function Header() {
       >
         {/* Left Side: Logo & Name */}
         <Link href="/" className="flex items-center space-x-2 shrink-0">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center">
+          <div className="relative rounded-full overflow-hidden  flex items-center justify-center">
             <Image
               src="/logo.webp"
               alt="Hidden Ants Media Logo"
-              width={32}
-              height={32}
-              className="object-cover"
+              width={52}
+              height={52}
+              className="object-cover  "
             />
           </div>
           
