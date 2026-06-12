@@ -1,8 +1,8 @@
 import React from "react";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
+import ServicesStack from "@/components/ServicesStack";
 import WhoWeHelp from "@/components/WhoWeHelp";
-import ServicesGrid from "@/components/ServicesGrid";
 import FeaturedWork from "@/components/FeaturedWork";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import ProcessTimeline from "@/components/ProcessTimeline";
@@ -20,11 +20,11 @@ export default function Home() {
       {/* Section 2: Trust Bar */}
       <TrustBar />
 
-      {/* Section 3: Who We Help */}
-      <WhoWeHelp />
+      {/* Section 3: Services Stack (stacking scroll cards) */}
+      <ServicesStack />
 
-      {/* Section 4: Services */}
-      <ServicesGrid />
+      {/* Section 4: Who We Help */}
+      <WhoWeHelp />
 
       {/* Section 5: Featured Work */}
       <FeaturedWork />

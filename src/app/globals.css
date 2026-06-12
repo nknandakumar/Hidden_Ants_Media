@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-primary: #050505;
+  --color-bg-primary: #0A0A0A;
   --color-bg-secondary: #0A0A0A;
   --color-surface: #111111;
   --color-accent-yellow: #FFCC01;
@@ -13,7 +13,7 @@
 }
 
 :root {
-  --background: #050505;
+  --background: #0A0A0A;
   --foreground: #FFFFFF;
 }
 
@@ -29,7 +29,7 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #0A0A0A;
 }
 ::-webkit-scrollbar-thumb {
   background: #1f1f1f;
@@ -62,4 +62,34 @@ html {
 }
 .thin-border-focus {
   border: 1px solid rgba(255, 204, 1, 0.4);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #111111 25%, #1d1d1d 50%, #111111 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s infinite ease-in-out;
 }

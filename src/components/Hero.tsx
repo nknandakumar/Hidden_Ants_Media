@@ -34,10 +34,10 @@ export default function Hero() {
 
       {/* Left Side Content Container */}
       <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-28 pb-12 lg:py-0 lg:h-full relative z-10">
-        <div className="space-y-6 max-w-2xl">
+        <div className="space-y-6 max-w-2xl text-center lg:text-left">
           
           {/* Social Proof Review Eyebrow */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
             {/* Overlapping Avatars */}
             <div className="flex -space-x-3">
               {clientAvatars.map((url, i) => (
@@ -76,7 +76,7 @@ export default function Hero() {
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
             <a
               href="tel:+919876543210"
               className="inline-flex items-center justify-center space-x-2 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-lg shadow-accent-yellow/10"

@@ -38,8 +38,8 @@ export default function Header() {
       <div
         className={`w-full max-w-3xl pointer-events-auto flex items-center justify-between rounded-full px-5 py-3 transition-all duration-300 ${
           scrolled || isOpen
-            ? "bg-bg-primary/70 backdrop-blur-lg border border-white/10 shadow-2xl"
-            : "bg-black/30 backdrop-blur-md border border-white/5 shadow-lg"
+            ? "bg-bg-primary/70 backdrop-blur-lg shadow-2xl"
+            : "bg-black/30 backdrop-blur-md shadow-lg"
         }`}
       >
         {/* Left Side: Logo & Name */}

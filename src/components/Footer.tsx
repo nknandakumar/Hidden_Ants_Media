@@ -22,7 +22,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-bg-secondary thin-border-t text-text-primary py-16 md:py-24">
+    <footer className="bg-bg-secondary text-text-primary py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
         
         {/* Brand Column */}
@@ -171,7 +171,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 thin-border-t flex flex-col md:flex-row items-center justify-between text-xs text-text-secondary space-y-4 md:space-y-0">
+      <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-text-secondary space-y-4 md:space-y-0">
         <div>
           © {currentYear} Hidden Ants Media. All rights reserved.
         </div>

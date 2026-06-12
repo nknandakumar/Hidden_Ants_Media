@@ -10,7 +10,7 @@ export default function FinalCTA() {
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <section className="bg-bg-primary py-20 md:py-32 thin-border-b">
+    <section className="bg-bg-primary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -22,7 +22,7 @@ export default function FinalCTA() {
           {/* Subtle Background Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-yellow/5 rounded-full blur-[120px] pointer-events-none" />
 
-          <span className="text-xs font-bold uppercase tracking-widest text-accent-yellow block">
+          <span className="inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow">
             Let's Collaborate
           </span>
           

@@ -80,12 +80,12 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="bg-bg-secondary py-20 md:py-32 thin-border-b overflow-hidden">
+    <section className="bg-bg-secondary py-20 md:py-32 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6 text-center relative">
         
         {/* Section Header */}
-        <div className="mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-accent-yellow block mb-3">
+        <div className="mb-12 text-center">
+          <span className="inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow">
             Client Success
           </span>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-text-primary">

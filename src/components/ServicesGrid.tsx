@@ -40,19 +40,19 @@ export default function ServicesGrid() {
   ];
 
   return (
-    <section id="services" className="bg-bg-secondary py-20 md:py-32 thin-border-b">
+    <section id="services" className="bg-bg-secondary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <span className="text-xs font-bold uppercase tracking-widest text-accent-yellow block mb-3">
+        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
+          <span className="inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow">
             What We Do
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight leading-none text-text-primary">
             Everything You Need To{" "}
             <span className="font-instrument italic text-accent-yellow">Grow Online</span>.
           </h2>
-          <p className="text-text-secondary text-base md:text-lg mt-6 max-w-xl">
+          <p className="text-text-secondary text-base md:text-lg mt-6 max-w-xl mx-auto">
             We offer end-to-end creative consulting and marketing production. No outsourcing. No templates. Just custom execution.
           </p>
         </div>

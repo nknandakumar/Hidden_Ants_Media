@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function FounderStory() {
   return (
-    <section className="bg-bg-primary py-20 md:py-32 thin-border-b">
+    <section className="bg-bg-primary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
@@ -38,10 +38,10 @@ export default function FounderStory() {
 
           {/* Text Side (Column 7) */}
           <div className="lg:col-span-7 space-y-6 md:space-y-8">
-            <span className="text-xs font-bold uppercase tracking-widest text-accent-yellow block">
+            <span className="w-max mx-auto lg:mx-0 inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow text-center lg:text-left">
               Origin
             </span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-text-primary leading-[0.95]">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-text-primary leading-[0.95] text-center lg:text-left">
               The Story Behind
               <br />
               <span className="font-instrument italic text-accent-yellow block mt-2">

@@ -28,18 +28,18 @@ export default function ProcessTimeline() {
   ];
 
   return (
-    <section className="bg-bg-secondary py-20 md:py-32 thin-border-b">
+    <section className="bg-bg-secondary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <span className="text-xs font-bold uppercase tracking-widest text-accent-yellow block mb-3">
+        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
+          <span className="inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow">
             Our Workflow
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-text-primary">
             How We <span className="font-instrument italic text-accent-yellow">Work</span>
           </h2>
-          <p className="text-text-secondary text-base md:text-lg mt-6 max-w-xl">
+          <p className="text-text-secondary text-base md:text-lg mt-6 max-w-xl mx-auto">
             A transparent, streamlined creative process designed to move quickly and deliver measurable business results.
           </p>
         </div>
