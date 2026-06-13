@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Compass, CheckSquare, Zap, Globe } from "lucide-react";
 
@@ -10,21 +11,25 @@ export default function WhyChooseUs() {
       icon: Globe,
       title: "Local Market Understanding",
       desc: "Based in Shivamogga, we know exactly what local consumers look for, where they hang out, and what style of content gets their attention.",
+      image: "/images/local_market.png",
     },
     {
       icon: Compass,
       title: "Creative + Strategy",
       desc: "We don't just shoot pretty videos. We pair cinematic storytelling with hard-hitting marketing strategy to ensure every campaign drives business ROI.",
+      image: "/images/creative_strategy.png",
     },
     {
       icon: CheckSquare,
       title: "End-to-End Execution",
       desc: "From branding guidelines and menu design to copywriting, professional shooting, editing, and publishing, we handle everything under one roof.",
+      image: "/images/execution.png",
     },
     {
       icon: Zap,
       title: "Fast Communication",
       desc: "No long waiting times or agency red tape. You have direct access to our core creative team, ensuring instant updates and quick turnarounds.",
+      image: "/images/communication.png",
     },
   ];
 
@@ -49,6 +54,7 @@ export default function WhyChooseUs() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {cards.map((card, index) => {
             const Icon = card.icon;
+            
             return (
               <motion.div
                 key={card.title}
@@ -56,23 +62,38 @@ export default function WhyChooseUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="bg-surface thin-border p-8 md:p-10 rounded-2xl relative group"
+                className="bg-surface thin-border rounded-2xl overflow-hidden flex flex-col group"
               >
-                {/* Decorative Node */}
-                <div className="absolute top-8 right-8 text-3xl font-black text-white/[0.02] select-none font-mono">
-                  {`0${index + 1}`}
+                {/* Image Section (Edge-to-edge aspect-video at top) */}
+                <div className="relative w-full aspect-video overflow-hidden bg-bg-primary border-b border-white/5">
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  
+                  {/* Floating Number Badge */}
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm border border-white/10 px-3 py-1 rounded-full text-xs font-mono font-bold text-white/80 select-none">
+                    {`0${index + 1}`}
+                  </div>
                 </div>
 
-                <div className="w-12 h-12 bg-bg-primary text-text-secondary group-hover:text-accent-yellow transition-colors duration-300 flex items-center justify-center rounded-lg">
-                  <Icon className="w-6 h-6" />
+                {/* Text Content Section */}
+                <div className="p-6 md:p-8 flex flex-col flex-grow">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-bg-primary text-text-secondary group-hover:text-accent-yellow transition-colors duration-300 flex items-center justify-center rounded-lg flex-shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-lg md:text-xl font-bold tracking-tight text-text-primary group-hover:text-accent-yellow transition-colors duration-200">
+                      {card.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-text-secondary leading-relaxed mt-4">
+                    {card.desc}
+                  </p>
                 </div>
-
-                <h3 className="text-xl md:text-2xl font-bold tracking-tight text-text-primary mt-6 group-hover:text-accent-yellow transition-colors duration-200">
-                  {card.title}
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed mt-4 max-w-md">
-                  {card.desc}
-                </p>
               </motion.div>
             );
           })}

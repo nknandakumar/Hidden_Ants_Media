@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, Play, Volume2, VolumeX } from "lucide-react";
 
 interface PortfolioItem {
   id: number;
@@ -20,10 +20,12 @@ function LazyVideo({
   src,
   skeletonStyle,
   title,
+  isMuted,
 }: {
   src: string;
   skeletonStyle: "saree" | "mango" | "gym" | "dress" | "fixedrate" | "school";
   title: string;
+  isMuted: boolean;
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -66,6 +68,13 @@ function LazyVideo({
       });
     }
   }, [isInView, isLoaded, title]);
+
+  // Synchronize dynamic muting state with the HTML video element
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
 
   // Dynamic colors for creative skeleton styles
   const getSkeletonGradient = () => {
@@ -123,11 +132,6 @@ function LazyVideo({
             <Play className="w-5 h-5 text-white/50 fill-white/10 ml-0.5" />
           </div>
 
-          {/* Skeleton Label placeholders */}
-          <div className="absolute bottom-8 left-6 right-6 space-y-2.5">
-            <div className="h-3.5 bg-white/10 rounded-full w-2/3 animate-pulse" />
-            <div className="h-2.5 bg-white/5 rounded-full w-1/2 animate-pulse" />
-          </div>
         </div>
       )}
 
@@ -137,7 +141,7 @@ function LazyVideo({
           ref={videoRef}
           src={src}
           loop
-          muted
+          muted={isMuted}
           playsInline
           autoPlay
           onLoadedData={() => setIsLoaded(true)}
@@ -152,6 +156,12 @@ function LazyVideo({
 
 export default function FeaturedWork() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [unmutedVideoId, setUnmutedVideoId] = useState<number | null>(null);
+
+  // Mute any playing audio if the category filter changes
+  useEffect(() => {
+    setUnmutedVideoId(null);
+  }, [activeFilter]);
 
   const categories = ["All", "Reels", "Campaigns", "Branding", "Video Production"];
 
@@ -253,49 +263,44 @@ export default function FeaturedWork() {
         {/* Vertical Portrait Reels Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
-              <motion.a
-                layout
-                key={item.id}
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className="relative group overflow-hidden rounded-xl bg-surface thin-border cursor-pointer aspect-[9/16] block"
-              >
-                {/* Lazy Loaded optimized video stream */}
-                <LazyVideo
-                  src={item.videoUrl}
-                  skeletonStyle={item.skeletonStyle}
-                  title={item.title}
-                />
+            {filteredItems.map((item) => {
+              const isMuted = unmutedVideoId !== item.id;
+              return (
+                <motion.div
+                  layout
+                  key={item.id}
+                  onClick={() => {
+                    if (unmutedVideoId === item.id) {
+                      setUnmutedVideoId(null);
+                    } else {
+                      setUnmutedVideoId(item.id);
+                    }
+                  }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="relative group overflow-hidden rounded-xl bg-surface thin-border cursor-pointer aspect-[9/16] block"
+                >
+                  {/* Lazy Loaded optimized video stream */}
+                  <LazyVideo
+                    src={item.videoUrl}
+                    skeletonStyle={item.skeletonStyle}
+                    title={item.title}
+                    isMuted={isMuted}
+                  />
 
-                {/* Dark Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/30 to-transparent opacity-65 group-hover:opacity-85 transition-opacity duration-300 z-10" />
-
-                {/* Content Overlay */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 z-20">
-                  {/* Category Pill */}
-                  <span className="self-start px-2.5 py-1 bg-accent-yellow text-bg-primary text-[10px] font-bold uppercase tracking-widest rounded mb-3">
-                    {item.category}
-                  </span>
-
-                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-text-primary group-hover:text-accent-yellow transition-colors duration-200">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs md:text-sm text-text-secondary mt-1">
-                    {item.subtitle}
-                  </p>
-
-                  <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-accent-yellow text-bg-primary flex items-center justify-center opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <ArrowUpRight className="w-5 h-5" />
+                  {/* Sound Toggle Indicator */}
+                  <div className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center border border-white/10 text-white transition-all duration-300 hover:scale-110">
+                    {isMuted ? (
+                      <VolumeX className="w-4.5 h-4.5 text-white/70" />
+                    ) : (
+                      <Volume2 className="w-4.5 h-4.5 text-accent-yellow animate-pulse" />
+                    )}
                   </div>
-                </div>
-              </motion.a>
-            ))}
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 
