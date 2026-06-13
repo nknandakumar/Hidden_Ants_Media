@@ -1,166 +1,171 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { BadgeCheck, Star } from "lucide-react";
+import Image from "next/image";
 
 interface Testimonial {
   id: number;
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
+  businessName: string;
+  date: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  text: string;
 }
 
+const testimonials: Testimonial[] = [
+  {
+    id: 1,
+    businessName: "The Malnad Cafe",
+    date: "Nov 22, 2025",
+    name: "Raghav Gowda",
+    handle: "@raghav_malnad",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "As someone with zero digital marketing experience, I was worried about running ads. But Hidden Ants made it so simple. Our weekend walk-ins have increased by 40%!",
+  },
+  {
+    id: 2,
+    businessName: "Sahyadri Fashion",
+    date: "Dec 14, 2025",
+    name: "Priya Hegde",
+    handle: "@priya_styles",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "I thought building a strong online brand would take months. Their team helped our boutique go viral locally in days, without us needing any technical skills.",
+  },
+  {
+    id: 3,
+    businessName: "Smile Dental Clinic",
+    date: "Oct 30, 2025",
+    name: "Dr. Vikram Rao",
+    handle: "@dr_vikram_smiles",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "As a busy dentist, I had no idea where to start with social media. This agency gave me confidence and made the process surprisingly smooth. Patient inquiries have doubled.",
+  },
+  {
+    id: 4,
+    businessName: "Urban Nest Real Estate",
+    date: "Nov 05, 2025",
+    name: "Sneha Patel",
+    handle: "@sneha_realtor",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "I never imagined getting leads could be this easy. Their content strategy guided me at every stage, and our property listings now look truly premium and attract high-ticket buyers.",
+  },
+  {
+    id: 5,
+    businessName: "Elysian Salon",
+    date: "Sep 18, 2025",
+    name: "Shwetha Bhat",
+    handle: "@shwetha_glam",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "From color palettes to reel formats, customizing our brand was effortless. I finally have a salon page that not only looks great but also works perfectly to book appointments.",
+  },
+  {
+    id: 6,
+    businessName: "Apex Fitness Studio",
+    date: "Dec 02, 2025",
+    name: "Rohit Sharma",
+    handle: "@rohit_fitness",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "Every detail was thought through. I didn't feel lost even once, and in just a week our gym had a promotional campaign I'm incredibly proud to share with our members.",
+  },
+  {
+    id: 7,
+    businessName: "Luxe Event Planners",
+    date: "Oct 11, 2025",
+    name: "Ananya Desai",
+    handle: "@ananya_events",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "I was skeptical about hiring an agency, but this team feels custom-made for our needs. Our event photography and social feed now reflect our luxury vision perfectly.",
+  },
+  {
+    id: 8,
+    businessName: "EduTech Solutions",
+    date: "Nov 28, 2025",
+    name: "Aditi Verma",
+    handle: "@aditi_edutech",
+    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "The whole experience was faster than I expected. In under seven days, our ad campaigns were live, polished, and fully aligned with our brand identity.",
+  },
+  {
+    id: 9,
+    businessName: "Elegance Showroom",
+    date: "Sep 25, 2025",
+    name: "Kiran Kumar",
+    handle: "@kiran_elegance",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=faces&q=80",
+    text: "They don't just post content; they build campaigns that convert followers into paying showroom clients. The level of professionalism they maintain is rare.",
+  }
+];
+
 export default function Testimonials() {
-  const testimonials: Testimonial[] = [
-    {
-      id: 1,
-      quote: "Hidden Ants Media completely transformed our cafe's image. Our Reels started going viral locally in Shivamogga, and we saw a 40% increase in weekend walk-ins within two months!",
-      author: "Raghav Gowda",
-      role: "Founder & Head Barista",
-      company: "The Malnad Cafe",
-    },
-    {
-      id: 2,
-      quote: "Their understanding of the local market combined with modern editorial aesthetics is unmatched. They don't just post content; they build campaigns that convert followers into paying showroom clients.",
-      author: "Priya Hegde",
-      role: "Managing Director",
-      company: "Sahyadri Fashion Hub",
-    },
-    {
-      id: 3,
-      quote: "The level of professionalism and responsiveness they maintain is rare. The brand guidelines and photography layout they created for our luxury store feel world-class.",
-      author: "Kiran Kumar",
-      role: "Founder",
-      company: "Elegance Showroom",
-    },
-    {
-      id: 4,
-      quote: "We hired them for our grand opening social media campaign and reels production. The results exceeded expectations—we were fully booked for the first ten days!",
-      author: "Shwetha Rao",
-      role: "Co-Founder",
-      company: "Elysian Salon",
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for prev, 1 for next
-
-  const handleNext = useCallback(() => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
-
-  const handlePrev = useCallback(() => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }, [testimonials.length]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, 8000);
-    return () => clearInterval(timer);
-  }, [handleNext]);
-
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 100 : -100,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      x: dir < 0 ? 100 : -100,
-      opacity: 0,
-    }),
-  };
-
   return (
-    <section className="bg-bg-secondary py-20 md:py-32 overflow-hidden">
-      <div className="max-w-4xl mx-auto px-6 text-center relative">
+    <section className="bg-bg-secondary py-20 md:py-32">
+      <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="mb-12 text-center">
+        <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24">
           <span className="inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow">
             Client Success
           </span>
-          <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-text-primary">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-text-primary">
             Loved By Local <span className="font-instrument italic text-accent-yellow">Leaders</span>
           </h2>
         </div>
 
-        {/* Quote Icon decorative */}
-        <div className="flex justify-center mb-8">
-          <Quote className="w-12 h-12 text-accent-yellow/20" />
-        </div>
-
-        {/* Carousel Window */}
-        <div className="relative min-h-[260px] md:min-h-[200px] flex items-center justify-center">
-          <AnimatePresence initial={false} custom={direction} mode="wait">
+        {/* Masonry Grid */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          {testimonials.map((t, index) => (
             <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="w-full max-w-3xl"
+              key={t.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+              className="break-inside-avoid bg-surface thin-border p-6 rounded-2xl flex flex-col shadow-lg"
             >
-              <blockquote className="text-xl md:text-2xl font-medium text-text-primary leading-relaxed">
-                "{testimonials[currentIndex].quote}"
-              </blockquote>
-              
-              <div className="mt-8">
-                <cite className="not-italic block text-base font-bold text-accent-yellow">
-                  {testimonials[currentIndex].author}
-                </cite>
-                <span className="text-xs text-text-secondary uppercase tracking-wider block mt-1">
-                  {testimonials[currentIndex].role}, {testimonials[currentIndex].company}
-                </span>
+              {/* Header: Business */}
+              <div className="flex items-center text-[11px] md:text-xs font-semibold text-text-primary mb-5">
+                <span>{t.businessName}</span>
               </div>
+              
+              {/* Profile Row */}
+              <div className="flex items-start justify-start gap-3 mb-4">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 bg-white/5 border border-white/10">
+                  <Image 
+                    src={t.avatar} 
+                    alt={t.name} 
+                    fill 
+                    className="object-cover" 
+                    sizes="48px"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-bold text-text-primary">{t.name}</span>
+                    <BadgeCheck className="w-4 h-4 text-[#1DA1F2] fill-[#1DA1F2] stroke-white ml-0.5" />
+                  </div>
+                  <span className="text-xs text-text-secondary mt-0.5">{t.handle}</span>
+                   
+                   {/* Stars */}
+              <div className="flex gap-1 mt-1 mb-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-accent-yellow text-accent-yellow" />
+                ))}
+              </div>
+                </div>
+                
+              </div>
+
+             
+
+              {/* Testimonial Body */}
+              <p className="text-sm text-text-secondary leading-relaxed">
+                {t.text}
+              </p>
             </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Slider Controls */}
-        <div className="flex items-center justify-center space-x-6 mt-12">
-          <button
-            onClick={handlePrev}
-            className="w-10 h-10 rounded-full bg-surface text-text-primary hover:text-accent-yellow thin-border flex items-center justify-center transition-all hover:scale-105 active:scale-95"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          
-          {/* Dot Indicators */}
-          <div className="flex space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setDirection(index > currentIndex ? 1 : -1);
-                  setCurrentIndex(index);
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "w-6 bg-accent-yellow" : "w-1.5 bg-white/20"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={handleNext}
-            className="w-10 h-10 rounded-full bg-surface text-text-primary hover:text-accent-yellow thin-border flex items-center justify-center transition-all hover:scale-105 active:scale-95"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+          ))}
         </div>
 
       </div>
