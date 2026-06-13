@@ -5,6 +5,15 @@ import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 
 export default function ProcessTimeline() {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024); // Trigger for tablets & mobile
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section className="bg-bg-secondary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
@@ -26,8 +35,8 @@ export default function ProcessTimeline() {
           <motion.div
             initial="initial"
             whileHover="hover"
-            whileInView="animate"
-            viewport={{ once: true }}
+            whileInView={isMobile ? ["animate", "hover"] : "animate"}
+            viewport={{ once: true, margin: "-100px" }}
             variants={{
               initial: { opacity: 0, y: 30 },
               animate: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -85,8 +94,8 @@ export default function ProcessTimeline() {
           <motion.div
             initial="initial"
             whileHover="hover"
-            whileInView="animate"
-            viewport={{ once: true }}
+            whileInView={isMobile ? ["animate", "hover"] : "animate"}
+            viewport={{ once: true, margin: "-100px" }}
             variants={{
               initial: { opacity: 0, y: 30 },
               animate: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } }
@@ -152,8 +161,8 @@ export default function ProcessTimeline() {
           <motion.div
             initial="initial"
             whileHover="hover"
-            whileInView="animate"
-            viewport={{ once: true }}
+            whileInView={isMobile ? ["animate", "hover"] : "animate"}
+            viewport={{ once: true, margin: "-100px" }}
             variants={{
               initial: { opacity: 0, y: 30 },
               animate: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
