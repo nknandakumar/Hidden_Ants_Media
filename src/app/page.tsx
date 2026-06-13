@@ -8,8 +8,8 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import FounderStory from "@/components/FounderStory";
 import Testimonials from "@/components/Testimonials";
+import Investment from "@/components/Investment";
 import FreeAuditOffer from "@/components/FreeAuditOffer";
-import FinalCTA from "@/components/FinalCTA";
 
 export default function Home() {
   return (
@@ -41,11 +41,12 @@ export default function Home() {
       {/* Section 9: Testimonials */}
       <Testimonials />
 
-      {/* Section 10: Free Audit Offer */}
+      {/* Section 10: Investment */}
+      <Investment />
+
+      {/* Section 11: Free Audit Offer */}
       <FreeAuditOffer />
 
-      {/* Section 11: Final CTA */}
-      <FinalCTA />
     </>
   );
 }

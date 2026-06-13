@@ -142,37 +142,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Final Call to Action */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-surface thin-border p-8 md:p-16 rounded-3xl text-center space-y-6">
-            <h3 className="text-2xl md:text-4xl font-bold tracking-tight text-text-primary">
-              Ready to work with a dedicated local creative partner?
-            </h3>
-            <p className="text-text-secondary text-sm md:text-base max-w-lg mx-auto">
-              Get in touch today for a free consultation or chat with us on WhatsApp to discuss your project ideas.
-            </p>
-            <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
-              <Link
-                href="/contact"
-                className="bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all hover:scale-105"
-              >
-                Get in Touch
-              </Link>
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-bg-primary hover:bg-white/5 text-text-primary px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest thin-border transition-all hover:scale-105"
-              >
-                Chat via WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 }

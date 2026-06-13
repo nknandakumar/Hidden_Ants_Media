@@ -37,7 +37,7 @@ export default function FreeAuditOffer() {
   return (
     <section id="free-audit" className="bg-bg-primary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 justify-start items-start">
           
           {/* Info Side */}
           <div className="space-y-6 md:space-y-8">
@@ -51,29 +51,7 @@ export default function FreeAuditOffer() {
               Wondering why your competitor gets all the attention? We will personally audit your Instagram, content quality, brand consistency, and lead conversion funnel. 
             </p>
             
-            <div className="space-y-4 pt-4 border-t border-white/5">
-              <div className="flex items-start space-x-3">
-                <CheckCircle2 className="w-5 h-5 text-accent-yellow shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-semibold text-text-primary">Custom Competitor Analysis</h4>
-                  <p className="text-xs text-text-secondary mt-1">See what top local and national brands in your niche are doing to win customers.</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle2 className="w-5 h-5 text-accent-yellow shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-semibold text-text-primary">Actionable Content Playbook</h4>
-                  <p className="text-xs text-text-secondary mt-1">Receive 3 concrete Reels concepts tailored specifically for your cafe, salon, or store.</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle2 className="w-5 h-5 text-accent-yellow shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm font-semibold text-text-primary">Funnel Fixes</h4>
-                  <p className="text-xs text-text-secondary mt-1">Identify why visitors aren't clicking your WhatsApp links or booking appointments.</p>
-                </div>
-              </div>
-            </div>
+        
           </div>
 
           {/* Form Side */}
