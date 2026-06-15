@@ -129,7 +129,7 @@ export default function PagePreloader() {
             </div>
 
             {/* Hidden Ants Media Text */}
-            <h2 className="font-instrument italic text-2xl md:text-3xl text-bg-primary/80 tracking-wide text-center uppercase">
+            <h2 className="font-instrument text-2xl font-semibold md:text-3xl text-bg-primary tracking-wide text-center uppercase">
               Hidden Ants Media
             </h2>
           </motion.div>
