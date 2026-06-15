@@ -46,6 +46,9 @@ export const metadata: Metadata = {
       "Transform your online presence with professional branding, content creation, and result-oriented digital marketing strategies designed for modern businesses.",
     siteName: "Hidden Ants Media",
   },
+  verification: {
+    google: "kyFghkZbHT4sw8WTmA44WSPDQDcpTy9jPY1_Pc18eVY",
+  },
 };
 
 export default function RootLayout({
