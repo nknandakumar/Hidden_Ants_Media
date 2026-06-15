@@ -4,8 +4,36 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Star, Phone } from "lucide-react";
+import { usePreloader } from "./PreloaderContext";
 
 export default function Hero() {
+  const { isLoaded } = usePreloader();
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.5,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 24 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        ease: [0.25, 1, 0.5, 1] as const,
+        duration: 0.8 
+      }
+    }
+  };
+
   const videoUrls = {
     layout: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781255715/layoutsales_ygddrb.mp4",
     gym: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781255718/gym_ve5ji3.mp4",
@@ -34,10 +62,14 @@ export default function Hero() {
 
       {/* Left Side Content Container */}
       <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-28 pb-12 lg:py-0 lg:h-full relative z-10">
-        <div className="space-y-6 max-w-2xl text-center lg:text-left">
-          
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          className="space-y-6 max-w-2xl text-center lg:text-left"
+        >
           {/* Social Proof Review Eyebrow */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
             {/* Overlapping Avatars */}
             <div className="flex -space-x-3">
               {clientAvatars.map((url, i) => (
@@ -58,25 +90,25 @@ export default function Hero() {
                 Loved by 50+ local businesses
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-6xl font-normal tracking-tight text-text-primary leading-[1.05]">
+          <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-4xl xl:text-6xl font-normal tracking-tight text-text-primary leading-[1.05]">
             Digital Growth Partner
             <br />
             <span className="text-text-secondary">for Businesses That Want </span> 
             <span className="font-instrument italic text-accent-yellow block sm:inline mt-1 sm:mt-0">
               More Customers
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Subheading */}
-          <p className="text-text-secondary text-sm md:text-base leading-relaxed">
+          <motion.p variants={itemVariants} className="text-text-secondary text-sm md:text-base leading-relaxed">
             From branding and content creation to social media management and video production, we help businesses build visibility and drive growth.
-          </p>
+          </motion.p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
             <a
               href="tel:+919876543210"
               className="inline-flex items-center justify-center space-x-2 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-lg shadow-accent-yellow/10"
@@ -91,12 +123,17 @@ export default function Hero() {
               <span>View Our Work</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Right Side: Full Screen Height Staggered Video Marquee */}
-      <div className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center  z-10">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
+        transition={{ ease: [0.25, 1, 0.5, 1], duration: 1.2, delay: 0.7 }}
+        className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center  z-10"
+      >
         <div className="grid grid-cols-2 gap-4 w-full h-full px-4 lg:px-6 py-0">
           
           {/* Left Column Marquee (Videos 1 & 2 duplicated for seamless loop) - Scrolls Upwards */}
@@ -147,7 +184,7 @@ export default function Hero() {
           </div>
 
         </div>
-      </div>
+      </motion.div>
 
     </section>
   );

@@ -4,12 +4,15 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { usePreloader } from "./PreloaderContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { isLoaded } = usePreloader();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +35,12 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-6 left-0 right-0 w-full z-50 flex justify-center pointer-events-none px-4">
+    <motion.header
+      initial={{ y: -60, opacity: 0 }}
+      animate={isLoaded ? { y: 0, opacity: 1 } : { y: -60, opacity: 0 }}
+      transition={{ ease: [0.25, 1, 0.5, 1], duration: 0.8, delay: 0.8 }}
+      className="fixed top-6 left-0 right-0 w-full z-50 flex justify-center pointer-events-none px-4"
+    >
       
       {/* Floating Pill Navbar */}
       <div
@@ -77,11 +85,11 @@ export default function Header() {
         {/* Right Side: CTA Button */}
         <div className="hidden md:flex items-center space-x-4">
           <Link
-            href="/#free-audit"
+            href="tel:+919876543210"
             className="inline-flex items-center space-x-1.5 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-4 py-3 rounded-full text-[12px] font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105"
           >
-            <span>Free Audit</span>
-          
+            <Phone className="w-3.5 h-3.5 fill-current" />
+            <span>Call Now</span>
           </Link>
         </div>
 
@@ -125,16 +133,16 @@ export default function Header() {
             );
           })}
           <Link
-            href="/#free-audit"
+            href="tel:+919876543210"
             onClick={() => setIsOpen(false)}
             className="inline-flex items-center space-x-2 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-sm font-bold uppercase tracking-widest transition-all"
           >
-            <span>Get Free Audit</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <Phone className="w-4 h-4 fill-current" />
+            <span>Call Now</span>
           </Link>
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 }
 

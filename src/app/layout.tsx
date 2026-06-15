@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { PreloaderProvider } from "@/components/PreloaderContext";
+import PagePreloader from "@/components/PagePreloader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -46,9 +48,6 @@ export const metadata: Metadata = {
       "Transform your online presence with professional branding, content creation, and result-oriented digital marketing strategies designed for modern businesses.",
     siteName: "Hidden Ants Media",
   },
-  verification: {
-    google: "kyFghkZbHT4sw8WTmA44WSPDQDcpTy9jPY1_Pc18eVY",
-  },
 };
 
 export default function RootLayout({
@@ -60,12 +59,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary selection:bg-accent-yellow selection:text-bg-primary">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <PreloaderProvider>
+          <PagePreloader />
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+        </PreloaderProvider>
       </body>
     </html>
   );
