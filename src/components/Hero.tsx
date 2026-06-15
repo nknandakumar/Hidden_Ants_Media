@@ -134,6 +134,10 @@ export default function Hero() {
         transition={{ ease: [0.25, 1, 0.5, 1], duration: 1.2, delay: 0.7 }}
         className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center  z-10"
       >
+        {/* Top & Bottom gradient fades for seamless scrolling edge transitions */}
+        <div className="absolute -mt-8 lg:-mt-0 -top-0.5 left-0 right-0 h-18 lg:h-28 bg-gradient-to-b from-bg-primary to-transparent z-20 pointer-events-none" />
+        <div className="absolute -mb-1 lg:-mb-0 bottom-0 left-0 right-0 h-16 lg:h-28 bg-gradient-to-t from-bg-primary to-transparent z-20 pointer-events-none" />
+
         <div className="grid grid-cols-2 gap-4 w-full h-full px-4 lg:px-6 py-0">
           
           {/* Left Column Marquee (Videos 1 & 2 duplicated for seamless loop) - Scrolls Upwards */}
@@ -141,7 +145,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: ["0%", "-50%"] }}
               transition={{ ease: "linear", duration: 20, repeat: Infinity }}
-              className="space-y-4 py-4 flex flex-col"
+              className="space-y-4 flex flex-col"
             >
               <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
                 <video src={videoUrls.layout} autoPlay muted loop playsInline className="w-full h-full object-cover" />
@@ -164,7 +168,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: ["-50%", "0%"] }}
               transition={{ ease: "linear", duration: 20, repeat: Infinity }}
-              className="space-y-4 py-4 flex flex-col"
+              className="space-y-4 flex flex-col"
             >
               {/* Duplicates */}
               <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
