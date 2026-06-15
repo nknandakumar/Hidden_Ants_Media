@@ -110,42 +110,23 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section 2: Origin Story Split */}
-      <section className="py-12 md:py-20 thin-border-t thin-border-b bg-bg-secondary">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
-          <div className="lg:col-span-5 relative">
-            <div className="aspect-[4/5] relative rounded-2xl overflow-hidden thin-border bg-surface">
-              <Image
-                src={founderImage}
-                alt="Founder Franklin portrait"
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover transition-transform duration-700 hover:scale-[1.02]"
-                priority
-              />
-            </div>
-            {/* Decal */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-accent-yellow/30 pointer-events-none rounded-br-2xl" />
+      {/* Section 2: Origin Story Narrative */}
+      <section className="py-16 md:py-24 thin-border-t thin-border-b bg-bg-secondary">
+        <div className="max-w-3xl mx-auto px-6 text-center space-y-8">
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-text-primary">
+            Why We Call Ourselves <span className="text-accent-yellow">"Hidden Ants"</span>
+          </h2>
+          <div className="space-y-6 text-text-secondary text-sm md:text-base leading-relaxed text-left">
+            <p>
+              In the digital marketing world, agencies often want to stand in the spotlight, boasting about metrics that don't matter. We operate differently. We believe our client's brand should be the hero. 
+            </p>
+            <p>
+              Ants are small, but they work with incredible synergy, carry loads many times their weight, and construct intricate networks. We work behind the scenes of your business—shooting your product reels, writing copy, managing campaigns, and designing layouts—so that you can focus on providing the best services.
+            </p>
+            <p>
+              We believe that Shivamogga's local showrooms, cafes, salons, and stores deserve the same high-end visual design and strategic execution as brands in Bengaluru or Mumbai.
+            </p>
           </div>
-
-          <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-text-primary">
-              Why We Call Ourselves <span className="text-accent-yellow">"Hidden Ants"</span>
-            </h2>
-            <div className="space-y-4 text-text-secondary text-sm md:text-base leading-relaxed">
-              <p>
-                In the digital marketing world, agencies often want to stand in the spotlight, boasting about metrics that don't matter. We operate differently. We believe our client's brand should be the hero. 
-              </p>
-              <p>
-                Ants are small, but they work with incredible synergy, carry loads many times their weight, and construct intricate networks. We work behind the scenes of your business—shooting your product reels, writing copy, managing campaigns, and designing layouts—so that you can focus on providing the best services.
-              </p>
-              <p>
-                We believe that Shivamogga's local showrooms, cafes, salons, and stores deserve the same high-end visual design and strategic execution as brands in Bengaluru or Mumbai.
-              </p>
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -162,14 +143,38 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 justify-center items-start">
-            {/* Instagram Account Screenshot side */}
-            <div className="lg:col-span-5 relative order-last lg:order-first">
+            
+            {/* Founder Image Side (Column 5) */}
+            <div className="lg:col-span-5 relative">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+                className="relative aspect-[4/5] w-full rounded-[24px] overflow-hidden border border-white/10 bg-surface shadow-2xl"
+              >
+                <Image
+                  src={founderImage}
+                  alt={`Founder ${founderName}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-700 hover:scale-[1.02]"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/30 via-transparent to-transparent" />
+              </motion.div>
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-accent-yellow/30 pointer-events-none rounded-bl-2xl" />
+            </div>
+
+            {/* Details & Info Side (Column 7) */}
+            <div className="lg:col-span-7 space-y-8">
+              {/* Instagram Account Screenshot */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="w-full rounded-2xl overflow-hidden border border-white/10 bg-surface/50 p-1 shadow-2xl"
+                className="w-full max-w-[520px] rounded-2xl overflow-hidden border border-white/10 bg-surface/50 p-1 shadow-2xl"
               >
                 <img
                   src={igProfilePic}
@@ -177,16 +182,13 @@ export default function AboutPage() {
                   className="w-full h-auto rounded-xl object-contain"
                 />
               </motion.div>
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-accent-yellow/30 pointer-events-none rounded-bl-2xl" />
-            </div>
 
-            {/* Description Text & Social Icons */}
-            <div className="lg:col-span-7 space-y-8">
+              {/* Description Text */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
                 className="space-y-4 text-text-secondary text-sm md:text-base leading-relaxed"
               >
                 <p>
@@ -202,7 +204,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
                 className="flex items-center space-x-4 pt-2"
               >
                 <a
