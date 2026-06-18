@@ -34,18 +34,24 @@ export default function Hero() {
     }
   };
 
-  const videoUrls = {
-    layout: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781255715/layoutsales_ygddrb.mp4",
-    gym: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781255718/gym_ve5ji3.mp4",
-    resort: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781255741/resort_gnrfsn.mp4",
-    school: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781255752/school_qiyhki.mp4",
-  };
 
   const clientAvatars = [
     "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop",
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&fit=crop",
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&fit=crop",
     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&fit=crop",
+  ];
+
+  const leftColumnImages = [
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781283608/branding_HNM_k05xxs.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781284119/68c1a562-98f0-4d15-bb5d-1e3070fc6f0c.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781283594/video_production_fyck8o.jpg",
+  ];
+
+  const rightColumnImages = [
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781283778/815a9b1f-6022-4f9e-8dad-d65098ef5a87.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781332538/9134bc76-5137-4b41-be62-ef97e3bccf25_xeuoqe.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781333494/4fb33bc1-641a-40b4-be28-2163f833a9b2_kkmajl.png",
   ];
 
   return (
@@ -127,12 +133,12 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Right Side: Full Screen Height Staggered Video Marquee */}
+      {/* Right Side: Full Screen Height Staggered Image Marquee */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
         transition={{ ease: [0.25, 1, 0.5, 1], duration: 1.2, delay: 0.7 }}
-        className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center  z-10"
+        className="w-full lg:w-[45%] h-[60vh] lg:h-full relative overflow-hidden flex items-center z-10"
       >
         {/* Top & Bottom gradient fades for seamless scrolling edge transitions */}
         <div className="absolute -mt-8 lg:-mt-0 -top-0.5 left-0 right-0 h-18 lg:h-28 bg-gradient-to-b from-bg-primary to-transparent z-20 pointer-events-none" />
@@ -140,50 +146,33 @@ export default function Hero() {
 
         <div className="grid grid-cols-2 gap-4 w-full h-full px-4 lg:px-6 py-0">
           
-          {/* Left Column Marquee (Videos 1 & 2 duplicated for seamless loop) - Scrolls Upwards */}
+          {/* Left Column Marquee (Images 1, 2 & 3 duplicated for seamless loop) - Scrolls Upwards */}
           <div className="w-full h-full overflow-hidden relative">
             <motion.div
               animate={{ y: ["0%", "-50%"] }}
-              transition={{ ease: "linear", duration: 20, repeat: Infinity }}
+              transition={{ ease: "linear", duration: 28, repeat: Infinity }}
               className="space-y-4 flex flex-col"
             >
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.layout} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.gym} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
-              {/* Duplicates */}
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.layout} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.gym} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
+              {[...leftColumnImages, ...leftColumnImages].map((url, index) => (
+                <div key={`left-img-${index}`} className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl hover:scale-[1.02] transition-transform duration-300">
+                  <img src={url} alt={`Branding showcase ${index + 1}`} className="w-full h-full object-cover" />
+                </div>
+              ))}
             </motion.div>
           </div>
 
-          {/* Right Column Marquee (Videos 3 & 4 duplicated for seamless loop) - Scrolls Downwards */}
+          {/* Right Column Marquee (Images 4, 5 & 6 duplicated for seamless loop) - Scrolls Downwards */}
           <div className="w-full h-full overflow-hidden relative">
             <motion.div
               animate={{ y: ["-50%", "0%"] }}
-              transition={{ ease: "linear", duration: 20, repeat: Infinity }}
+              transition={{ ease: "linear", duration: 28, repeat: Infinity }}
               className="space-y-4 flex flex-col"
             >
-              {/* Duplicates */}
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.resort} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.school} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
-              {/* Originals */}
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.resort} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
-              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl">
-                <video src={videoUrls.school} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-              </div>
+              {[...rightColumnImages, ...rightColumnImages].map((url, index) => (
+                <div key={`right-img-${index}`} className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden thin-border bg-surface shadow-xl hover:scale-[1.02] transition-transform duration-300">
+                  <img src={url} alt={`Campaign showcase ${index + 1}`} className="w-full h-full object-cover" />
+                </div>
+              ))}
             </motion.div>
           </div>
 

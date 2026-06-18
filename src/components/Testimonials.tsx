@@ -70,33 +70,7 @@ const testimonials: Testimonial[] = [
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces&q=80",
     text: "Every detail was thought through. I didn't feel lost even once, and in just a week our gym had a promotional campaign I'm incredibly proud to share with our members.",
   },
-  {
-    id: 7,
-    businessName: "Luxe Event Planners",
-    date: "Oct 11, 2025",
-    name: "Ananya Desai",
-    handle: "@ananya_events",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "I was skeptical about hiring an agency, but this team feels custom-made for our needs. Our event photography and social feed now reflect our luxury vision perfectly.",
-  },
-  {
-    id: 8,
-    businessName: "EduTech Solutions",
-    date: "Nov 28, 2025",
-    name: "Aditi Verma",
-    handle: "@aditi_edutech",
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "The whole experience was faster than I expected. In under seven days, our ad campaigns were live, polished, and fully aligned with our brand identity.",
-  },
-  {
-    id: 9,
-    businessName: "Elegance Showroom",
-    date: "Sep 25, 2025",
-    name: "Kiran Kumar",
-    handle: "@kiran_elegance",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "They don't just post content; they build campaigns that convert followers into paying showroom clients. The level of professionalism they maintain is rare.",
-  }
+
 ];
 
 export default function Testimonials() {

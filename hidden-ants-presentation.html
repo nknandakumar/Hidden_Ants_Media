@@ -1,0 +1,2412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hidden Ants Media – Digital Presence Transformation</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* ============================================
+       TOKENS
+    ============================================ */
+    :root {
+      --yellow: #FFCC01;
+      --bg: #050505;
+      --bg2: #0B0B0B;
+      --surface: #111111;
+      --border: #1E1E1E;
+      --text: #FFFFFF;
+      --muted: #A8A8A8;
+      --green: #22C55E;
+      --red: #EF4444;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .serif { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+    /* ============================================
+       NAV
+    ============================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.95), transparent);
+      backdrop-filter: blur(2px);
+    }
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--yellow); }
+    .nav-pill {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 100px;
+    }
+
+    /* ============================================
+       SECTION SHARED
+    ============================================ */
+    section {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 24px;
+    }
+    .label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--yellow);
+    }
+
+    .section-title {
+      font-size: clamp(40px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+    }
+
+    .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ============================================
+       S1 — HERO
+    ============================================ */
+    #hero {
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--bg);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Cinematic placeholder image — a dark abstract cinematic gradient */
+    .hero-visual {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,204,1,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(255,204,1,0.04) 0%, transparent 60%),
+        linear-gradient(160deg, #0a0800 0%, #050505 50%, #0a0800 100%);
+    }
+
+    /* Floating mockup cards in hero */
+    .hero-mockups {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .mockup-float {
+      position: absolute;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+      background: var(--surface);
+    }
+
+    .mockup-float.left {
+      width: 420px;
+      height: 280px;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-45%) rotate(-6deg);
+    }
+
+    .mockup-float.right {
+      width: 380px;
+      height: 260px;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-55%) rotate(5deg);
+    }
+
+    .mockup-float.center-bottom {
+      width: 500px;
+      height: 60px;
+      left: 50%;
+      bottom: 80px;
+      transform: translateX(-50%);
+    }
+
+    /* Browser chrome inside mockup */
+    .browser-chrome {
+      background: #1a1a1a;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #FF5F57; }
+    .dot.y { background: #FEBC2E; }
+    .dot.g { background: #28C840; }
+    .url-bar {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Inter', monospace;
+    }
+    .mockup-content {
+      background: var(--surface);
+      height: calc(100% - 37px);
+    }
+
+    /* OLD site mockup content */
+    .old-mockup-content {
+      background: #f8f8f2;
+      padding: 16px;
+    }
+    .old-mockup-content .old-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .old-mockup-content .old-logo {
+      font-size: 11px; font-weight: 700; color: #222; letter-spacing: 0.04em;
+    }
+    .old-mockup-content .old-hero-area {
+      background: #e8e0d5;
+      height: 80px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .old-mockup-content .old-hero-text {
+      font-size: 10px; color: #555; font-family: 'Inter', sans-serif;
+    }
+
+    /* NEW site mockup content */
+    .new-mockup-content {
+      background: #050505;
+      padding: 16px;
+    }
+    .new-mockup-content .new-hero-area {
+      background: linear-gradient(135deg, #0d0d0d, #111);
+      height: 80px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,204,1,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .new-mockup-content .new-hero-area::before {
+      content: '';
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(255,204,1,0.2) 0%, transparent 70%);
+    }
+    .new-mockup-content .new-hero-text {
+      font-size: 10px; color: #FFCC01; font-weight: 700; letter-spacing: 0.08em;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 28px;
+    }
+
+    .hero-title {
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 52px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 16px 32px;
+      border-radius: 100px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(255,204,1,0.3); }
+    .cta-arrow { font-size: 16px; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--yellow), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ============================================
+       S2 — BEFORE / AFTER SPLIT
+    ============================================ */
+    #split {
+      background: var(--bg2);
+      padding: 120px 0;
+    }
+
+    .split-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .split-screen {
+      display: grid;
+      grid-template-columns: 1fr 2px 1fr;
+      gap: 0;
+      min-height: 520px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .split-divider {
+      background: var(--yellow);
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .split-divider-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #000;
+      font-weight: 800;
+      position: absolute;
+      box-shadow: 0 0 0 8px rgba(255,204,1,0.15);
+    }
+
+    .split-panel {
+      padding: 40px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .split-panel.old { background: #0d0d0d; }
+    .split-panel.new { background: #070707; }
+
+    .split-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      width: fit-content;
+      margin-bottom: 24px;
+    }
+    .split-tag.old-tag { color: var(--muted); background: var(--surface); border: 1px solid var(--border); }
+    .split-tag.new-tag { color: #000; background: var(--yellow); }
+
+    .split-browser {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* OLD SITE full mockup */
+    .old-site-body {
+      background: #f5f0e8;
+      height: 100%;
+      padding: 20px;
+    }
+    .old-site-nav { display: flex; justify-content: space-between; margin-bottom: 20px; }
+    .old-site-nav-logo { font-size: 13px; font-weight: 700; color: #333; }
+    .old-site-nav-links { display: flex; gap: 12px; }
+    .old-site-nav-link { font-size: 10px; color: #666; }
+    .old-site-hero {
+      background: linear-gradient(135deg, #e8ddd0, #d5c8b8);
+      height: 140px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .old-site-hero-h { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px; }
+    .old-site-hero-p { font-size: 9px; color: #666; max-width: 200px; line-height: 1.5; }
+    .old-site-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .old-site-card {
+      background: #e0d9cf;
+      border-radius: 4px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .old-site-card-label { font-size: 8px; color: #888; }
+
+    /* NEW SITE full mockup */
+    .new-site-body {
+      background: #050505;
+      height: 100%;
+      padding: 20px;
+    }
+    .new-site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .new-site-logo { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 0.06em; }
+    .new-site-logo span { color: var(--yellow); }
+    .new-site-hero {
+      background: linear-gradient(135deg, #0d0d0d, #111);
+      border: 1px solid rgba(255,204,1,0.12);
+      border-radius: 8px;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .new-site-hero::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      background: radial-gradient(circle, rgba(255,204,1,0.12) 0%, transparent 70%);
+    }
+    .new-site-hero-h { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .new-site-hero-h span { color: var(--yellow); }
+    .new-site-hero-p { font-size: 8px; color: #888; max-width: 200px; line-height: 1.6; }
+    .new-site-cta {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--yellow);
+      color: #000;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+    .new-site-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .new-site-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 6px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .new-site-card-icon { font-size: 14px; }
+    .new-site-card-label { font-size: 7px; color: #666; }
+
+    /* ============================================
+       S3 — FIRST IMPRESSION
+    ============================================ */
+    #impression {
+      padding: 160px 0;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .impression-stat {
+      margin: 80px auto;
+      max-width: 640px;
+    }
+
+    .big-stat {
+      font-size: clamp(80px, 12vw, 140px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .browsers-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .browser-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.4s ease;
+    }
+    .browser-card:hover { transform: scale(1.02); }
+
+    .browser-card-chrome {
+      background: #1a1a1a;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bc-url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Inter', monospace;
+      text-align: left;
+    }
+    .bc-url.ugly { color: #EF4444; }
+    .bc-url.clean { color: var(--green); }
+
+    .browser-body { height: 300px; }
+
+    /* old site full render */
+    .old-full {
+      background: #f0eadf;
+      height: 100%;
+      padding: 16px;
+    }
+    .old-full-banner {
+      background: #ddd5c8;
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .old-full-banner h3 { font-size: 12px; color: #444; font-family: 'Inter', sans-serif; }
+    .old-full-banner p { font-size: 9px; color: #888; font-family: 'Inter', sans-serif; }
+
+    /* new site full render */
+    .new-full {
+      background: #050505;
+      height: 100%;
+      padding: 16px;
+    }
+    .new-full-banner {
+      background: #0d0d0d;
+      border: 1px solid rgba(255,204,1,0.1);
+      height: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .new-full-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px; left: 50%;
+      transform: translateX(-50%);
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(255,204,1,0.1) 0%, transparent 70%);
+    }
+    .new-full-banner h3 { font-size: 13px; font-weight: 800; color: #fff; font-family: 'Inter', sans-serif; letter-spacing: -0.02em; }
+    .new-full-banner h3 em { color: var(--yellow); font-style: italic; font-family: 'Instrument Serif', serif; }
+    .new-full-banner p { font-size: 9px; color: #666; font-family: 'Inter', sans-serif; }
+
+    /* ============================================
+       S4 — WEBSITE TRANSFORMATION
+    ============================================ */
+    #transformation {
+      padding: 120px 0;
+      background: var(--bg2);
+    }
+
+    .transformation-grid {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .transform-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 0;
+      align-items: center;
+    }
+
+    .transform-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--yellow);
+    }
+    .transform-arrow-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--yellow), transparent);
+    }
+    .transform-arrow-icon { font-size: 18px; }
+
+    .transform-label-block {
+      margin-bottom: 12px;
+    }
+    .transform-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .transform-section-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .transform-mockup {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* ============================================
+       S5 — DOMAIN
+    ============================================ */
+    #domain {
+      padding: 160px 0;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .domain-comparison {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .domain-card {
+      width: 100%;
+      max-width: 720px;
+      border-radius: 16px;
+      padding: 32px 40px;
+      text-align: left;
+    }
+
+    .domain-card.old-domain {
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .domain-card.new-domain {
+      background: linear-gradient(135deg, #0d0a00, #111);
+      border: 2px solid var(--yellow);
+      box-shadow: 0 0 60px rgba(255,204,1,0.08);
+    }
+
+    .domain-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .domain-card.new-domain .domain-tag { color: var(--yellow); }
+
+    .domain-url {
+      font-size: clamp(14px, 2vw, 18px);
+      font-family: 'Inter', monospace;
+      color: var(--muted);
+      word-break: break-all;
+      line-height: 1.6;
+    }
+
+    .domain-url.clean {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .domain-url.clean span { color: var(--yellow); }
+
+    .domain-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--yellow);
+    }
+    .domain-arrow-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--yellow), transparent);
+    }
+
+    /* ============================================
+       S6 — GOOGLE PRESENCE
+    ============================================ */
+    #google {
+      padding: 120px 0;
+      background: var(--bg2);
+    }
+
+    .google-grid {
+      margin-top: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .google-panel {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .google-panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .google-panel-header.empty { color: var(--muted); background: var(--surface); }
+    .google-panel-header.full { color: #000; background: var(--yellow); }
+
+    /* Empty Google search */
+    .empty-results {
+      background: #0a0a0a;
+      padding: 32px 24px;
+    }
+    .search-bar {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .search-bar input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      flex: 1;
+    }
+    .search-icon { color: var(--muted); font-size: 16px; }
+
+    .no-result-placeholder {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .placeholder-line {
+      background: #1a1a1a;
+      border-radius: 4px;
+      height: 12px;
+    }
+    .placeholder-line.short { width: 40%; }
+    .placeholder-line.medium { width: 65%; }
+    .placeholder-line.long { width: 85%; }
+    .placeholder-line.full { width: 100%; }
+
+    .no-result-label {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .no-result-label span {
+      display: block;
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    /* Google Business Profile mockup */
+    .gbp-mockup {
+      background: #0a0a0a;
+      padding: 24px;
+    }
+    .gbp-header {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .gbp-logo {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--yellow), #e6b800);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #000;
+      flex-shrink: 0;
+    }
+    .gbp-name { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+    .gbp-category { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .gbp-stars { color: #FBBC04; font-size: 14px; letter-spacing: 1px; }
+    .gbp-stars span { font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+    .gbp-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .gbp-action-btn {
+      flex: 1;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .gbp-action-btn.primary { background: rgba(255,204,1,0.08); border-color: rgba(255,204,1,0.2); color: var(--yellow); }
+
+    .gbp-info-rows { display: flex; flex-direction: column; gap: 8px; }
+    .gbp-info-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .gbp-info-row:last-child { border-bottom: none; }
+    .gbp-info-icon { font-size: 14px; width: 20px; text-align: center; }
+
+    /* ============================================
+       S7 — ECOSYSTEM
+    ============================================ */
+    #ecosystem {
+      padding: 160px 0;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .ecosystem-diagram {
+      position: relative;
+      max-width: 700px;
+      margin: 80px auto 0;
+      height: 500px;
+    }
+
+    .eco-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 10;
+      box-shadow: 0 0 60px rgba(255,204,1,0.25);
+    }
+    .eco-center-icon { font-size: 24px; }
+    .eco-center-label { font-size: 8px; font-weight: 700; color: #000; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .eco-node {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 5;
+      transition: all 0.4s ease;
+    }
+    .eco-node:hover {
+      border-color: var(--yellow);
+      box-shadow: 0 0 20px rgba(255,204,1,0.15);
+    }
+    .eco-node-icon { font-size: 20px; }
+    .eco-node-label { font-size: 8px; color: var(--muted); letter-spacing: 0.05em; text-align: center; line-height: 1.2; }
+
+    .eco-line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,204,1,0.4), rgba(255,204,1,0.05));
+      z-index: 2;
+    }
+
+    /* ============================================
+       S8 — MOBILE
+    ============================================ */
+    #mobile {
+      padding: 120px 0;
+      background: var(--bg2);
+      overflow: hidden;
+    }
+
+    .mobile-header { text-align: center; margin-bottom: 80px; }
+
+    .phones-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: -20px;
+      padding: 0 24px;
+    }
+
+    .phone-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .phone-wrap.center { z-index: 3; }
+    .phone-wrap.side { z-index: 2; transform: scale(0.85) translateY(20px); opacity: 0.7; }
+    .phone-wrap.far { z-index: 1; transform: scale(0.72) translateY(40px); opacity: 0.45; }
+
+    .phone {
+      width: 220px;
+      background: #111;
+      border-radius: 32px;
+      border: 2px solid #2a2a2a;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+
+    .phone-notch {
+      background: #000;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-notch-pill {
+      width: 72px;
+      height: 10px;
+      background: #1a1a1a;
+      border-radius: 100px;
+      border: 1px solid #333;
+    }
+
+    .phone-screen {
+      background: #050505;
+      min-height: 420px;
+      padding: 16px;
+    }
+
+    .phone-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .phone-logo { font-size: 10px; font-weight: 800; color: #fff; }
+    .phone-logo span { color: var(--yellow); }
+    .phone-menu { font-size: 16px; color: var(--muted); }
+
+    .phone-hero {
+      background: linear-gradient(135deg, #0d0d0d, #111);
+      border: 1px solid rgba(255,204,1,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .phone-hero::before {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(255,204,1,0.12) 0%, transparent 70%);
+    }
+    .phone-hero h3 { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .phone-hero h3 em { color: var(--yellow); font-style: italic; font-family: 'Instrument Serif', serif; }
+    .phone-hero p { font-size: 9px; color: #777; line-height: 1.6; margin-bottom: 12px; }
+    .phone-cta {
+      display: inline-block;
+      background: var(--yellow);
+      color: #000;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .phone-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .phone-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      padding: 14px 12px;
+    }
+    .phone-card-icon { font-size: 18px; margin-bottom: 6px; }
+    .phone-card-label { font-size: 9px; color: var(--muted); font-weight: 500; }
+
+    .phone-bottom-bar {
+      background: #0d0d0d;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-home-indicator {
+      width: 100px;
+      height: 4px;
+      background: #333;
+      border-radius: 100px;
+    }
+
+    /* ============================================
+       S9 — BUSINESS IMPACT
+    ============================================ */
+    #impact {
+      padding: 160px 0;
+      background: var(--bg);
+    }
+
+    .impact-header { text-align: center; margin-bottom: 80px; }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .impact-card {
+      background: var(--surface);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .impact-card:hover { background: #161616; }
+    .impact-card:hover .impact-icon { transform: scale(1.1); }
+
+    .impact-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--border);
+    }
+    .impact-card:hover::before { background: var(--yellow); }
+
+    .impact-icon {
+      font-size: 32px;
+      margin-bottom: 24px;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .impact-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .impact-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       S10 — COMPARISON TABLE
+    ============================================ */
+    #table {
+      padding: 120px 0;
+      background: var(--bg2);
+    }
+
+    .table-header { text-align: center; margin-bottom: 64px; }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .comparison-table th {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--surface);
+    }
+    .comparison-table th.feature-col { color: var(--muted); width: 30%; }
+    .comparison-table th.old-col { color: var(--muted); width: 35%; }
+    .comparison-table th.new-col { color: #000; background: var(--yellow); width: 35%; }
+
+    .comparison-table td { font-size: 14px; background: var(--bg2); }
+    .comparison-table td.feature { font-weight: 500; }
+    .comparison-table td.old-val { color: var(--muted); }
+    .comparison-table td.new-val { color: var(--text); font-weight: 500; }
+
+    .comparison-table tr:last-child td { border-bottom: none; }
+
+    .check { color: var(--green); font-size: 18px; margin-right: 8px; }
+    .cross { color: var(--red); font-size: 18px; margin-right: 8px; }
+
+    /* ============================================
+       S11 — LIVE EXPERIENCE
+    ============================================ */
+    #live {
+      padding: 160px 0;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .laptop-wrap {
+      position: relative;
+      max-width: 800px;
+      margin: 80px auto 0;
+    }
+
+    .laptop {
+      background: #1a1a1a;
+      border-radius: 16px 16px 0 0;
+      border: 2px solid #2a2a2a;
+      padding: 12px;
+      box-shadow: 0 60px 100px rgba(0,0,0,0.6);
+    }
+
+    .laptop-screen {
+      background: #050505;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 420px;
+    }
+
+    .laptop-chrome {
+      background: #111;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .laptop-url { flex: 1; background: #1a1a1a; border-radius: 6px; padding: 6px 12px; font-size: 12px; color: var(--green); font-family: 'Inter', monospace; text-align: left; }
+    .laptop-url-icon { margin-right: 4px; }
+
+    .laptop-site-content {
+      padding: 28px;
+      height: calc(100% - 43px);
+    }
+
+    .laptop-site-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .laptop-site-logo { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: 0.04em; }
+    .laptop-site-logo span { color: var(--yellow); }
+    .laptop-site-nav-links { display: flex; gap: 20px; }
+    .laptop-site-nav-link { font-size: 11px; color: var(--muted); }
+
+    .laptop-hero-area {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #0a0a0a, #0d0d0d);
+      border-radius: 12px;
+      border: 1px solid rgba(255,204,1,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .laptop-hero-area::before {
+      content: '';
+      position: absolute;
+      top: -40px; left: 50%;
+      transform: translateX(-50%);
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,204,1,0.07) 0%, transparent 70%);
+    }
+    .laptop-hero-h { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .laptop-hero-h em { color: var(--yellow); font-style: italic; font-family: 'Instrument Serif', serif; }
+    .laptop-hero-p { font-size: 12px; color: #666; line-height: 1.6; }
+
+    .laptop-base {
+      background: #2a2a2a;
+      height: 16px;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .laptop-stand {
+      width: 200px;
+      height: 12px;
+      background: #222;
+      margin: 0 auto;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .live-actions {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .qr-box {
+      width: 80px;
+      height: 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .qr-icon { font-size: 28px; }
+    .qr-label { font-size: 8px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 16px 28px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+    .secondary-btn:hover { border-color: var(--yellow); background: rgba(255,204,1,0.04); }
+
+    /* ============================================
+       S12 — CLOSING
+    ============================================ */
+    #closing {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .closing-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(255,204,1,0.06) 0%, transparent 70%);
+    }
+
+    .closing-content { position: relative; z-index: 2; max-width: 900px; }
+
+    .closing-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 32px;
+    }
+
+    .closing-title {
+      font-size: clamp(36px, 5.5vw, 80px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .closing-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 60px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-large {
+      font-size: 18px;
+      padding: 20px 48px;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: var(--bg2);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+    .footer-left { font-size: 12px; color: var(--muted); }
+    .footer-left strong { color: var(--text); }
+    .footer-right { font-size: 11px; color: var(--muted); }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .container { padding: 0 24px; }
+      .split-screen { grid-template-columns: 1fr; }
+      .split-divider { display: none; }
+      .browsers-row { grid-template-columns: 1fr; }
+      .google-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .transform-row { grid-template-columns: 1fr; }
+      .transform-arrow { display: none; }
+      .mockup-float { display: none; }
+      .phones-row { gap: 0; }
+      .phone-wrap.far, .phone-wrap.side { display: none; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .impact-grid { grid-template-columns: 1fr; }
+      .comparison-table { font-size: 12px; }
+      .comparison-table th, .comparison-table td { padding: 14px 16px; }
+    }
+
+    /* ============================================
+       UTILITY
+    ============================================ */
+    .text-yellow { color: var(--yellow); }
+    .text-muted { color: var(--muted); }
+    .mt-4 { margin-top: 16px; }
+    .mt-8 { margin-top: 32px; }
+    .text-center { text-align: center; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAV
+  ============================================ -->
+  <nav>
+    <div class="nav-logo">Hidden Ants <span>Media</span></div>
+    <div class="nav-pill">Transformation Proposal</div>
+  </nav>
+
+  <!-- ============================================
+       S1 — HERO
+  ============================================ -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-visual"></div>
+      <div class="hero-mockups">
+        <!-- Old site floating card -->
+        <div class="mockup-float left">
+          <div class="browser-chrome">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="url-bar">hiddenantsmedia.wixsite.com/...</div>
+          </div>
+          <div class="old-mockup-content mockup-content">
+            <div class="old-nav">
+              <div class="old-logo">HIDDEN ANTS MEDIA</div>
+            </div>
+            <div class="old-hero-area">
+              <div class="old-hero-text">Placeholder — Your current site screenshot</div>
+            </div>
+          </div>
+        </div>
+        <!-- New site floating card -->
+        <div class="mockup-float right">
+          <div class="browser-chrome">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="url-bar">hiddenantsmedia.com</div>
+          </div>
+          <div class="new-mockup-content mockup-content">
+            <div class="new-hero-area">
+              <div class="new-hero-text">New Design Preview</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Digital Presence Transformation</div>
+      <h1 class="hero-title">
+        Hidden Ants<br>
+        <span class="serif text-yellow">Media</span>
+      </h1>
+      <p class="hero-sub">A complete reimagining of how Hidden Ants Media appears online.</p>
+      <a href="#split" class="cta-btn">
+        Explore Transformation <span class="cta-arrow">↓</span>
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ============================================
+       S2 — CURRENT VS PROPOSED
+  ============================================ -->
+  <section id="split">
+    <div class="container">
+      <div class="split-header">
+        <div class="label">Side By Side</div>
+        <h2 class="section-title">
+          The <span class="serif text-yellow">difference</span><br>is immediate.
+        </h2>
+      </div>
+
+      <div class="split-screen reveal">
+        <!-- Old panel -->
+        <div class="split-panel old">
+          <div class="split-tag old-tag">Current Experience</div>
+          <div class="split-browser">
+            <div class="browser-chrome">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="url-bar ugly">hiddenantsmedia.wixsite.com/hiddenmedia</div>
+            </div>
+            <div class="old-site-body" style="height: calc(100% - 37px);">
+              <div class="old-site-nav">
+                <div class="old-site-nav-logo">HIDDNE ANTS MEDIA</div>
+                <div class="old-site-nav-links">
+                  <span class="old-site-nav-link">Home</span>
+                  <span class="old-site-nav-link">About</span>
+                  <span class="old-site-nav-link">Services</span>
+                </div>
+              </div>
+              <div class="old-site-hero">
+                <div class="old-site-hero-h">Welcome to Hidden Ants Media</div>
+                <div class="old-site-hero-p">Your current homepage screenshot will replace this placeholder area.</div>
+              </div>
+              <div class="old-site-grid">
+                <div class="old-site-card"><div class="old-site-card-label">Service 1</div></div>
+                <div class="old-site-card"><div class="old-site-card-label">Service 2</div></div>
+                <div class="old-site-card"><div class="old-site-card-label">Service 3</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="split-divider">
+          <div class="split-divider-icon">↔</div>
+        </div>
+
+        <!-- New panel -->
+        <div class="split-panel new">
+          <div class="split-tag new-tag">New Experience</div>
+          <div class="split-browser">
+            <div class="browser-chrome">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="url-bar clean">hiddenantsmedia.com</div>
+            </div>
+            <div class="new-site-body" style="height: calc(100% - 37px);">
+              <div class="new-site-nav">
+                <div class="new-site-logo">HIDDEN <span>ANTS</span></div>
+              </div>
+              <div class="new-site-hero">
+                <div class="new-site-hero-h">Results That <span>Speak</span></div>
+                <div class="new-site-hero-p">Redesigned homepage screenshot goes here — replace this placeholder with your actual design.</div>
+                <div class="new-site-cta">Get Started →</div>
+              </div>
+              <div class="new-site-cards">
+                <div class="new-site-card"><div class="new-site-card-icon">📈</div><div class="new-site-card-label">Growth</div></div>
+                <div class="new-site-card"><div class="new-site-card-icon">🎯</div><div class="new-site-card-label">Strategy</div></div>
+                <div class="new-site-card"><div class="new-site-card-icon">⚡</div><div class="new-site-card-label">Results</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S3 — FIRST IMPRESSION
+  ============================================ -->
+  <section id="impression">
+    <div class="container">
+      <div class="label">The Reality</div>
+      <h2 class="section-title reveal">
+        First impressions<br>happen <span class="serif text-yellow">in seconds.</span>
+      </h2>
+
+      <div class="impression-stat reveal">
+        <div class="big-stat">0.05<span style="font-size:0.4em">s</span></div>
+        <div class="stat-label">Users form opinions about websites almost instantly.<br>You never get a second chance at a first look.</div>
+      </div>
+
+      <div class="browsers-row reveal">
+        <div class="browser-card">
+          <div class="browser-card-chrome">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="bc-url ugly">hiddenantsmedia.wixsite.com/hiddenmedia</div>
+          </div>
+          <div class="browser-body">
+            <div class="old-full">
+              <div class="old-full-banner">
+                <h3>Current Website</h3>
+                <p>Replace with your current site screenshot</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="browser-card">
+          <div class="browser-card-chrome">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="bc-url clean">hiddenantsmedia.com</div>
+          </div>
+          <div class="browser-body">
+            <div class="new-full">
+              <div class="new-full-banner">
+                <h3>The <em>New</em> Standard</h3>
+                <p>Replace with your redesigned site screenshot</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S4 — WEBSITE TRANSFORMATION
+  ============================================ -->
+  <section id="transformation">
+    <div class="container">
+      <div class="label">Section by Section</div>
+      <h2 class="section-title reveal">
+        Every section,<br><span class="serif text-yellow">reimagined.</span>
+      </h2>
+
+      <div class="transformation-grid">
+
+        <!-- Row 1: Hero -->
+        <div class="transform-row reveal">
+          <div>
+            <div class="transform-label-block">
+              <div class="transform-section-label">Current</div>
+              <div class="transform-section-title">Hero Section</div>
+            </div>
+            <div class="transform-mockup">
+              <div class="browser-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="url-bar ugly" style="font-size:9px;">wixsite.com/...</div>
+              </div>
+              <div class="old-site-body" style="height:160px;">
+                <div class="old-site-hero" style="height:100%; margin:0;">
+                  <div class="old-site-hero-h">Current Hero — Placeholder</div>
+                  <div class="old-site-hero-p">Replace with actual screenshot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="transform-arrow">
+            <div class="transform-arrow-line"></div>
+            <div class="transform-arrow-icon">↓</div>
+            <div class="transform-arrow-line"></div>
+          </div>
+          <div>
+            <div class="transform-label-block">
+              <div class="transform-section-label" style="color:var(--yellow)">Proposed</div>
+              <div class="transform-section-title">Hero Section</div>
+            </div>
+            <div class="transform-mockup">
+              <div class="browser-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="url-bar clean" style="font-size:9px;">hiddenantsmedia.com</div>
+              </div>
+              <div class="new-site-body" style="height:160px;">
+                <div class="new-site-hero" style="height:100%; margin:0; border-radius:0;">
+                  <div class="new-site-hero-h">New Hero — <span>Placeholder</span></div>
+                  <div class="new-site-hero-p">Replace with your redesigned screenshot</div>
+                  <div class="new-site-cta" style="margin-top:8px;">See Results →</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Services -->
+        <div class="transform-row reveal">
+          <div>
+            <div class="transform-label-block">
+              <div class="transform-section-label">Current</div>
+              <div class="transform-section-title">Services Section</div>
+            </div>
+            <div class="transform-mockup">
+              <div class="old-site-body" style="padding:16px;">
+                <div class="old-site-grid" style="margin:0;">
+                  <div class="old-site-card" style="height:80px;"><div class="old-site-card-label">Service A</div></div>
+                  <div class="old-site-card" style="height:80px;"><div class="old-site-card-label">Service B</div></div>
+                  <div class="old-site-card" style="height:80px;"><div class="old-site-card-label">Service C</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="transform-arrow">
+            <div class="transform-arrow-line"></div>
+            <div class="transform-arrow-icon">↓</div>
+            <div class="transform-arrow-line"></div>
+          </div>
+          <div>
+            <div class="transform-label-block">
+              <div class="transform-section-label" style="color:var(--yellow)">Proposed</div>
+              <div class="transform-section-title">Services Section</div>
+            </div>
+            <div class="transform-mockup">
+              <div class="new-site-body" style="padding:16px;">
+                <div class="new-site-cards" style="margin:0;">
+                  <div class="new-site-card" style="height:80px;"><div class="new-site-card-icon">📣</div><div class="new-site-card-label">Social Media</div></div>
+                  <div class="new-site-card" style="height:80px;"><div class="new-site-card-icon">🎥</div><div class="new-site-card-label">Video</div></div>
+                  <div class="new-site-card" style="height:80px;"><div class="new-site-card-icon">✍️</div><div class="new-site-card-label">Content</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S5 — DOMAIN
+  ============================================ -->
+  <section id="domain">
+    <div class="container">
+      <div class="label">Your Address Online</div>
+      <h2 class="section-title reveal">
+        A professional brand starts<br>with a <span class="serif text-yellow">professional address.</span>
+      </h2>
+
+      <div class="domain-comparison">
+
+        <div class="domain-card old-domain reveal">
+          <div class="domain-tag">Current Domain</div>
+          <div class="domain-url">
+            hiddenantsmedia.wixsite.com/hiddenmedia?utm_campaign=&utm_source=...
+          </div>
+        </div>
+
+        <div class="domain-arrow reveal">
+          <div class="domain-arrow-line"></div>
+          <div style="font-size:20px; color:var(--yellow);">↓</div>
+        </div>
+
+        <div class="domain-card new-domain reveal">
+          <div class="domain-tag">Proposed Domain</div>
+          <div class="domain-url clean">
+            hidden<span>ants</span>media.com
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S6 — GOOGLE PRESENCE
+  ============================================ -->
+  <section id="google">
+    <div class="container">
+      <div class="label">Search Visibility</div>
+      <h2 class="section-title reveal">
+        From <span style="color:var(--muted)">invisible</span> to<br><span class="serif text-yellow">discoverable.</span>
+      </h2>
+
+      <div class="google-grid">
+
+        <!-- Empty results -->
+        <div class="google-panel reveal">
+          <div class="google-panel-header empty">Current State</div>
+          <div class="empty-results">
+            <div class="search-bar">
+              <span class="search-icon">🔍</span>
+              <input value="Hidden Ants Media digital marketing" readonly>
+            </div>
+            <div class="no-result-placeholder">
+              <div class="placeholder-line short"></div>
+              <div class="placeholder-line long"></div>
+              <div class="placeholder-line medium"></div>
+              <div class="placeholder-line full"></div>
+              <div class="placeholder-line short"></div>
+              <div class="placeholder-line medium"></div>
+            </div>
+            <div class="no-result-label">
+              <span>👻</span>
+              No Google Business Profile · No Map Visibility · No Reviews
+            </div>
+          </div>
+        </div>
+
+        <!-- GBP Mockup -->
+        <div class="google-panel reveal">
+          <div class="google-panel-header full">Proposed State</div>
+          <div class="gbp-mockup">
+            <div class="gbp-header">
+              <div class="gbp-logo">H</div>
+              <div>
+                <div class="gbp-name">Hidden Ants Media</div>
+                <div class="gbp-category">Digital Marketing Agency</div>
+                <div class="gbp-stars">★★★★★ <span>5.0 · 12 reviews</span></div>
+              </div>
+            </div>
+            <div class="gbp-actions">
+              <div class="gbp-action-btn primary">🌐 Website</div>
+              <div class="gbp-action-btn">📞 Call</div>
+              <div class="gbp-action-btn">📍 Directions</div>
+            </div>
+            <div class="gbp-info-rows">
+              <div class="gbp-info-row"><div class="gbp-info-icon">🕐</div> Open · Closes 6 PM</div>
+              <div class="gbp-info-row"><div class="gbp-info-icon">📍</div> Your city, India</div>
+              <div class="gbp-info-row"><div class="gbp-info-icon">📞</div> +91 00000 00000</div>
+              <div class="gbp-info-row"><div class="gbp-info-icon">💬</div> 12 Google Reviews</div>
+              <div class="gbp-info-row"><div class="gbp-info-icon">🖼️</div> 8 Photos Added</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S7 — ECOSYSTEM
+  ============================================ -->
+  <section id="ecosystem">
+    <div class="container">
+      <div class="label">Digital Ecosystem</div>
+      <h2 class="section-title reveal">
+        A brand exists<br><span class="serif text-yellow">everywhere.</span>
+      </h2>
+
+      <div class="ecosystem-diagram" id="ecosystemDiagram">
+        <!-- Connection lines will be injected by JS -->
+
+        <!-- Center -->
+        <div class="eco-center">
+          <div class="eco-center-icon">🐜</div>
+          <div class="eco-center-label">Hidden Ants</div>
+        </div>
+
+        <!-- Nodes positioned around -->
+        <div class="eco-node" style="top: 20px; left: 50%; transform: translateX(-50%);" id="en1">
+          <div class="eco-node-icon">🌐</div>
+          <div class="eco-node-label">Website</div>
+        </div>
+        <div class="eco-node" style="top: 20%; right: 10px;" id="en2">
+          <div class="eco-node-icon">📱</div>
+          <div class="eco-node-label">Instagram</div>
+        </div>
+        <div class="eco-node" style="bottom: 25%; right: 10px;" id="en3">
+          <div class="eco-node-icon">💬</div>
+          <div class="eco-node-label">WhatsApp</div>
+        </div>
+        <div class="eco-node" style="bottom: 30px; left: 50%; transform: translateX(-50%);" id="en4">
+          <div class="eco-node-icon">⭐</div>
+          <div class="eco-node-label">Google Business</div>
+        </div>
+        <div class="eco-node" style="bottom: 25%; left: 10px;" id="en5">
+          <div class="eco-node-icon">🗺️</div>
+          <div class="eco-node-label">Maps</div>
+        </div>
+        <div class="eco-node" style="top: 20%; left: 10px;" id="en6">
+          <div class="eco-node-icon">🔍</div>
+          <div class="eco-node-label">Search Results</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S8 — MOBILE EXPERIENCE
+  ============================================ -->
+  <section id="mobile">
+    <div class="mobile-header">
+      <div class="label">Mobile First</div>
+      <h2 class="section-title reveal">
+        Where <span class="serif text-yellow">most clients</span><br>will see you.
+      </h2>
+    </div>
+
+    <div class="phones-row">
+      <div class="phone-wrap far">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="phone-nav"><div class="phone-logo">H<span>A</span>M</div><div class="phone-menu">☰</div></div>
+            <div class="phone-hero">
+              <h3><em>Hidden</em> Ants</h3>
+              <p>Placeholder content</p>
+            </div>
+          </div>
+          <div class="phone-bottom-bar"><div class="phone-home-indicator"></div></div>
+        </div>
+      </div>
+
+      <div class="phone-wrap side">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="phone-nav"><div class="phone-logo">Hidden <span>Ants</span></div><div class="phone-menu">☰</div></div>
+            <div class="phone-hero">
+              <h3>We Make<br><em>Brands</em> Grow</h3>
+              <p>Replace with your mobile screenshot</p>
+              <div class="phone-cta">Get Started →</div>
+            </div>
+          </div>
+          <div class="phone-bottom-bar"><div class="phone-home-indicator"></div></div>
+        </div>
+      </div>
+
+      <div class="phone-wrap center" id="centerPhone">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="phone-nav">
+              <div class="phone-logo">Hidden <span>Ants</span></div>
+              <div class="phone-menu">☰</div>
+            </div>
+            <div class="phone-hero">
+              <h3>We Make<br><em>Brands</em> Grow</h3>
+              <p>Full-stack digital marketing for businesses ready to scale.</p>
+              <div class="phone-cta">Get Started →</div>
+            </div>
+            <div class="phone-cards">
+              <div class="phone-card">
+                <div class="phone-card-icon">📣</div>
+                <div class="phone-card-label">Social Media</div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-icon">🎥</div>
+                <div class="phone-card-label">Video Production</div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-icon">🔍</div>
+                <div class="phone-card-label">SEO</div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-card-icon">📊</div>
+                <div class="phone-card-label">Analytics</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-bar"><div class="phone-home-indicator"></div></div>
+        </div>
+      </div>
+
+      <div class="phone-wrap side">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="phone-nav"><div class="phone-logo">Hidden <span>Ants</span></div><div class="phone-menu">☰</div></div>
+            <div class="phone-hero">
+              <h3><em>Our</em> Services</h3>
+              <p>Replace with your services screen</p>
+              <div class="phone-cta">Learn More →</div>
+            </div>
+          </div>
+          <div class="phone-bottom-bar"><div class="phone-home-indicator"></div></div>
+        </div>
+      </div>
+
+      <div class="phone-wrap far">
+        <div class="phone">
+          <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+          <div class="phone-screen">
+            <div class="phone-nav"><div class="phone-logo">H<span>A</span>M</div><div class="phone-menu">☰</div></div>
+            <div class="phone-hero">
+              <h3><em>Contact</em></h3>
+              <p>Placeholder content</p>
+            </div>
+          </div>
+          <div class="phone-bottom-bar"><div class="phone-home-indicator"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S9 — BUSINESS IMPACT
+  ============================================ -->
+  <section id="impact">
+    <div class="container">
+      <div class="impact-header">
+        <div class="label">What Changes</div>
+        <h2 class="section-title reveal">
+          The <span class="serif text-yellow">real</span> results.
+        </h2>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-card reveal">
+          <span class="impact-icon">🏆</span>
+          <div class="impact-title">Professional Image</div>
+          <div class="impact-desc">First impressions that match the quality of your actual work.</div>
+        </div>
+        <div class="impact-card reveal">
+          <span class="impact-icon">🤝</span>
+          <div class="impact-title">Stronger Trust</div>
+          <div class="impact-desc">A polished presence signals credibility before a word is spoken.</div>
+        </div>
+        <div class="impact-card reveal">
+          <span class="impact-icon">🔍</span>
+          <div class="impact-title">Better Visibility</div>
+          <div class="impact-desc">Google Business, search rankings, and map discovery working together.</div>
+        </div>
+        <div class="impact-card reveal">
+          <span class="impact-icon">💰</span>
+          <div class="impact-title">Higher Conversion</div>
+          <div class="impact-desc">Clear messaging and strong CTAs that turn visitors into leads.</div>
+        </div>
+        <div class="impact-card reveal">
+          <span class="impact-icon">👑</span>
+          <div class="impact-title">Premium Positioning</div>
+          <div class="impact-desc">Stop competing on price. Look like the premium option you are.</div>
+        </div>
+        <div class="impact-card reveal">
+          <span class="impact-icon">📥</span>
+          <div class="impact-title">Lead Generation</div>
+          <div class="impact-desc">A digital ecosystem designed to capture and nurture enquiries.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S10 — COMPARISON TABLE
+  ============================================ -->
+  <section id="table">
+    <div class="container">
+      <div class="table-header">
+        <div class="label">The Full Picture</div>
+        <h2 class="section-title reveal">
+          <span class="serif text-yellow">Everything</span><br>compared.
+        </h2>
+      </div>
+
+      <div class="reveal">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th class="feature-col"></th>
+              <th class="old-col">Current</th>
+              <th class="new-col">Proposed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature">Website</td>
+              <td class="old-val"><span class="cross">✗</span> Generic Wix template</td>
+              <td class="new-val"><span class="check">✓</span> Custom premium design</td>
+            </tr>
+            <tr>
+              <td class="feature">Domain</td>
+              <td class="old-val"><span class="cross">✗</span> wixsite.com/hiddenmedia...</td>
+              <td class="new-val"><span class="check">✓</span> hiddenantsmedia.com</td>
+            </tr>
+            <tr>
+              <td class="feature">Google Business</td>
+              <td class="old-val"><span class="cross">✗</span> No profile</td>
+              <td class="new-val"><span class="check">✓</span> Fully optimised profile</td>
+            </tr>
+            <tr>
+              <td class="feature">Mobile Experience</td>
+              <td class="old-val"><span class="cross">✗</span> Poor responsiveness</td>
+              <td class="new-val"><span class="check">✓</span> Mobile-first design</td>
+            </tr>
+            <tr>
+              <td class="feature">Lead Generation</td>
+              <td class="old-val"><span class="cross">✗</span> No clear CTA system</td>
+              <td class="new-val"><span class="check">✓</span> Conversion-optimised</td>
+            </tr>
+            <tr>
+              <td class="feature">Brand Positioning</td>
+              <td class="old-val"><span class="cross">✗</span> Generic, low authority</td>
+              <td class="new-val"><span class="check">✓</span> Premium, high-trust</td>
+            </tr>
+            <tr>
+              <td class="feature">Social Integration</td>
+              <td class="old-val"><span class="cross">✗</span> Instagram only</td>
+              <td class="new-val"><span class="check">✓</span> Full ecosystem</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S11 — LIVE EXPERIENCE
+  ============================================ -->
+  <section id="live">
+    <div class="container">
+      <div class="label">The Preview</div>
+      <h2 class="section-title reveal">
+        See it<br><span class="serif text-yellow">live.</span>
+      </h2>
+
+      <div class="laptop-wrap reveal">
+        <div class="laptop">
+          <div class="laptop-screen">
+            <div class="laptop-chrome">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="laptop-url"><span class="laptop-url-icon">🔒</span> hiddenantsmedia.com</div>
+            </div>
+            <div class="laptop-site-content">
+              <div class="laptop-site-nav">
+                <div class="laptop-site-logo">HIDDEN <span>ANTS</span> MEDIA</div>
+                <div class="laptop-site-nav-links">
+                  <span class="laptop-site-nav-link">Services</span>
+                  <span class="laptop-site-nav-link">Work</span>
+                  <span class="laptop-site-nav-link">About</span>
+                  <span class="laptop-site-nav-link" style="color:var(--yellow)">Contact →</span>
+                </div>
+              </div>
+              <div class="laptop-hero-area">
+                <div class="laptop-hero-h">We Make Brands<br><em>Actually</em> Grow</div>
+                <div class="laptop-hero-p">Replace this with your actual live site preview or a screenshot of the redesigned homepage.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+        <div class="laptop-stand"></div>
+      </div>
+
+      <div class="live-actions">
+        <div class="qr-box">
+          <div class="qr-icon">▣</div>
+          <div class="qr-label">QR Code</div>
+        </div>
+        <a href="#" class="cta-btn">View Live Website →</a>
+        <a href="#" class="secondary-btn">↗ Preview Link</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       S12 — CLOSING
+  ============================================ -->
+  <section id="closing">
+    <div class="closing-bg"></div>
+    <div class="container">
+      <div class="closing-content">
+        <div class="closing-eyebrow">The Next Step</div>
+        <h2 class="closing-title reveal">
+          Hidden Ants Media deserves<br>a presence as <span class="serif text-yellow">strong</span><br>as its work.
+        </h2>
+        <p class="closing-sub reveal">
+          A modern brand needs more than social media.<br>
+          It needs a digital ecosystem that builds trust and drives growth.
+        </p>
+        <a href="mailto:hello@rayvok.com" class="cta-btn cta-large reveal">
+          Let's Talk →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer>
+    <div class="footer-left">
+      Prepared by <strong>Rayvok</strong> for Hidden Ants Media
+    </div>
+    <div class="footer-right">rayvok.com · Confidential Proposal</div>
+  </footer>
+
+  <!-- ============================================
+       SCRIPTS
+  ============================================ -->
+  <script>
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ---- Reveal on scroll ----
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1, y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // ---- Hero floating mockups ----
+    gsap.to('.mockup-float.left', {
+      y: -16, rotate: -5,
+      duration: 4,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1
+    });
+    gsap.to('.mockup-float.right', {
+      y: 16, rotate: 4,
+      duration: 3.5,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1
+    });
+
+    // ---- Hero title stagger ----
+    gsap.fromTo('.hero-eyebrow',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 }
+    );
+    gsap.fromTo('.hero-title',
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', delay: 0.4 }
+    );
+    gsap.fromTo('.hero-sub',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.65 }
+    );
+    gsap.fromTo('.cta-btn',
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85 }
+    );
+
+    // ---- Stat counter ----
+    ScrollTrigger.create({
+      trigger: '.big-stat',
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.fromTo('.big-stat',
+          { opacity: 0, scale: 0.7 },
+          { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.4)' }
+        );
+      }
+    });
+
+    // ---- Impact cards stagger ----
+    gsap.fromTo('.impact-card',
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.impact-grid',
+          start: 'top 80%',
+        }
+      }
+    );
+
+    // ---- Nav fade in ----
+    gsap.fromTo('nav',
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.1 }
+    );
+
+    // ---- Nav shrink on scroll ----
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.style.background = 'rgba(5,5,5,0.96)';
+        nav.style.backdropFilter = 'blur(12px)';
+      } else {
+        nav.style.background = 'linear-gradient(to bottom, rgba(5,5,5,0.95), transparent)';
+        nav.style.backdropFilter = 'blur(2px)';
+      }
+    });
+
+    // ---- Center phone parallax ----
+    gsap.to('#centerPhone', {
+      y: -30,
+      scrollTrigger: {
+        trigger: '#mobile',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5
+      }
+    });
+
+    // ---- Ecosystem nodes entrance ----
+    gsap.fromTo('.eco-node',
+      { opacity: 0, scale: 0.5 },
+      {
+        opacity: 1, scale: 1,
+        duration: 0.6,
+        ease: 'back.out(1.6)',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: '#ecosystem',
+          start: 'top 70%',
+        }
+      }
+    );
+    gsap.fromTo('.eco-center',
+      { opacity: 0, scale: 0.3 },
+      {
+        opacity: 1, scale: 1,
+        duration: 0.8,
+        ease: 'back.out(2)',
+        scrollTrigger: {
+          trigger: '#ecosystem',
+          start: 'top 70%',
+        }
+      }
+    );
+
+    // Gentle pulse on eco-center
+    gsap.to('.eco-center', {
+      boxShadow: '0 0 80px rgba(255,204,1,0.35)',
+      scale: 1.05,
+      duration: 2,
+      yoyo: true,
+      repeat: -1,
+      ease: 'sine.inOut'
+    });
+
+    // ---- Split screen panels slide in ----
+    gsap.fromTo('.split-panel.old',
+      { opacity: 0, x: -60 },
+      {
+        opacity: 1, x: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#split', start: 'top 75%' }
+      }
+    );
+    gsap.fromTo('.split-panel.new',
+      { opacity: 0, x: 60 },
+      {
+        opacity: 1, x: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#split', start: 'top 75%' }
+      }
+    );
+
+    // ---- Domain cards ----
+    gsap.fromTo('.domain-card.old-domain',
+      { opacity: 0, x: -40 },
+      {
+        opacity: 1, x: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '#domain', start: 'top 75%' }
+      }
+    );
+    gsap.fromTo('.domain-card.new-domain',
+      { opacity: 0, x: 40 },
+      {
+        opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', delay: 0.2,
+        scrollTrigger: { trigger: '#domain', start: 'top 75%' }
+      }
+    );
+
+    // ---- Table row stagger ----
+    gsap.fromTo('.comparison-table tbody tr',
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: '.comparison-table', start: 'top 80%' }
+      }
+    );
+
+    // ---- Laptop float ----
+    gsap.to('.laptop-wrap', {
+      y: -12,
+      duration: 4,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1
+    });
+
+    // ---- Closing title ----
+    gsap.fromTo('.closing-title',
+      { opacity: 0, y: 60 },
+      {
+        opacity: 1, y: 0, duration: 1.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '#closing', start: 'top 70%' }
+      }
+    );
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
