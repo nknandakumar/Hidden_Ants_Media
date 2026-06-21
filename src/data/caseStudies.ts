@@ -6,7 +6,7 @@ export interface OutcomeMetric {
 export interface CaseStudy {
   id: number;
   title: string;
-  category: "Reels" | "Campaigns" | "Branding" | "Video Production";
+  category: "Reels" | "Campaigns" | "Branding" | "Video Production" | "Instagram handling";
   subtitle: string;
   clientName: string;
   location: string;

@@ -8,69 +8,47 @@ import Image from "next/image";
 interface Testimonial {
   id: number;
   businessName: string;
-  date: string;
-  name: string;
-  handle: string;
-  avatar: string;
+  logo: string;
   text: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    businessName: "The Malnad Cafe",
-    date: "Nov 22, 2025",
-    name: "Raghav Gowda",
-    handle: "@raghav_malnad",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "As someone with zero digital marketing experience, I was worried about running ads. But Hidden Ants made it so simple. Our weekend walk-ins have increased by 40%!",
+    businessName: "Vidhatri Bhavan",
+    logo: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031674/e4b39ff9-26e2-40d8-90da-205fb6a31f27.png",
+    text: "Hidden Ants Media is one of our online partners. The reels they created showcase our signature dishes beautifully and bring in a lot of local food lovers.",
   },
   {
     id: 2,
-    businessName: "Sahyadri Fashion",
-    date: "Dec 14, 2025",
-    name: "Priya Hegde",
-    handle: "@priya_styles",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "I thought building a strong online brand would take months. Their team helped our boutique go viral locally in days, without us needing any technical skills.",
+    businessName: "Simple Energy Shivamogga",
+    logo: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031727/1235ccd6-a8ae-463e-89e6-3464d3488cea.png",
+    text: "They helped us launch our EV Scooty showroom's social presence in Shimoga. The Instagram reach and local engagement during the launch phase was really good.",
   },
   {
     id: 3,
-    businessName: "Smile Dental Clinic",
-    date: "Oct 30, 2025",
-    name: "Dr. Vikram Rao",
-    handle: "@dr_vikram_smiles",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "As a busy dentist, I had no idea where to start with social media. This agency gave me confidence and made the process surprisingly smooth. Patient inquiries have doubled.",
+    businessName: "Barbel Culture Gym",
+    logo: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031732/6d2287fc-9e63-4d38-811f-b143197be90d.png",
+    text: "They create high-quality cinematic reels for our gym. The videos showcase our training environment perfectly and get great engagement.",
   },
   {
     id: 4,
-    businessName: "Urban Nest Real Estate",
-    date: "Nov 05, 2025",
-    name: "Sneha Patel",
-    handle: "@sneha_realtor",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "I never imagined getting leads could be this easy. Their content strategy guided me at every stage, and our property listings now look truly premium and attract high-ticket buyers.",
+    businessName: "MS Furniture",
+    logo: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031757/dfff0454-cac4-419e-86e4-522aacbb87ec.png",
+    text: "They handle our entire Instagram account. Since taking over, we don't have to worry about posting or editing reels. Consistent and reliable.",
   },
   {
     id: 5,
-    businessName: "Elysian Salon",
-    date: "Sep 18, 2025",
-    name: "Shwetha Bhat",
-    handle: "@shwetha_glam",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "From color palettes to reel formats, customizing our brand was effortless. I finally have a salon page that not only looks great but also works perfectly to book appointments.",
+    businessName: "Bhumi Rental Gallery",
+    logo: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031791/3691ee26-bbe6-41ed-a515-82e2870298f7.png",
+    text: "Their consulting and content ideas helped us grow our clothing rental gallery online. We've seen a very steady flow of new clients.",
   },
   {
     id: 6,
-    businessName: "Apex Fitness Studio",
-    date: "Dec 02, 2025",
-    name: "Rohit Sharma",
-    handle: "@rohit_fitness",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces&q=80",
-    text: "Every detail was thought through. I didn't feel lost even once, and in just a week our gym had a promotional campaign I'm incredibly proud to share with our members.",
+    businessName: "Saivaram",
+    logo: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031821/81611b77-8683-4653-ba86-fa50354a7e37.png",
+    text: "They created outstanding reels showcasing our famous dishes and our clean dining atmosphere. Highly recommend them for food brand promotion in Shimoga.",
   },
-
 ];
 
 export default function Testimonials() {
@@ -99,40 +77,31 @@ export default function Testimonials() {
               transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
               className="break-inside-avoid bg-surface thin-border p-6 rounded-2xl flex flex-col shadow-lg"
             >
-              {/* Header: Business */}
-              <div className="flex items-center text-[11px] md:text-xs font-semibold text-text-primary mb-5">
-                <span>{t.businessName}</span>
-              </div>
-              
               {/* Profile Row */}
-              <div className="flex items-start justify-start gap-3 mb-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 bg-white/5 border border-white/10">
+              <div className="flex items-center justify-start gap-4 mb-4">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 bg-white border border-white/10 flex items-center justify-center shadow-inner">
                   <Image 
-                    src={t.avatar} 
-                    alt={t.name} 
+                    src={t.logo} 
+                    alt={t.businessName} 
                     fill 
-                    className="object-cover" 
+                    className="object-contain p-1 rounded-full" 
                     sizes="48px"
                   />
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center gap-1">
-                    <span className="text-sm font-bold text-text-primary">{t.name}</span>
+                    <span className="text-sm font-bold text-text-primary">{t.businessName}</span>
                     <BadgeCheck className="w-4 h-4 text-[#1DA1F2] fill-[#1DA1F2] stroke-white ml-0.5" />
                   </div>
-                  <span className="text-xs text-text-secondary mt-0.5">{t.handle}</span>
                    
                    {/* Stars */}
-              <div className="flex gap-1 mt-1 mb-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-accent-yellow text-accent-yellow" />
-                ))}
-              </div>
+                   <div className="flex gap-1 mt-1">
+                     {[...Array(5)].map((_, i) => (
+                       <Star key={i} className="w-3.5 h-3.5 fill-accent-yellow text-accent-yellow" />
+                     ))}
+                   </div>
                 </div>
-                
               </div>
-
-             
 
               {/* Testimonial Body */}
               <p className="text-sm text-text-secondary leading-relaxed">

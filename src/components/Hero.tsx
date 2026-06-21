@@ -36,21 +36,23 @@ export default function Hero() {
 
 
   const clientAvatars = [
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&fit=crop",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&fit=crop",
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&fit=crop",
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&fit=crop",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031674/e4b39ff9-26e2-40d8-90da-205fb6a31f27.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031727/1235ccd6-a8ae-463e-89e6-3464d3488cea.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031732/6d2287fc-9e63-4d38-811f-b143197be90d.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031757/dfff0454-cac4-419e-86e4-522aacbb87ec.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031791/3691ee26-bbe6-41ed-a515-82e2870298f7.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031821/81611b77-8683-4653-ba86-fa50354a7e37.png",
   ];
 
   const leftColumnImages = [
-    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781283608/branding_HNM_k05xxs.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782025134/vidhatribhavan_nwzvbi.jpg",
     "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781284119/68c1a562-98f0-4d15-bb5d-1e3070fc6f0c.png",
     "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781283594/video_production_fyck8o.jpg",
   ];
 
   const rightColumnImages = [
-    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781283778/815a9b1f-6022-4f9e-8dad-d65098ef5a87.png",
-    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781332538/9134bc76-5137-4b41-be62-ef97e3bccf25_xeuoqe.png",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782031391/fblock_iljkwt.jpg",
+    "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782025134/vidhatribhavan_nwzvbi.jpg",
     "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781333494/4fb33bc1-641a-40b4-be28-2163f833a9b2_kkmajl.png",
   ];
 
@@ -93,7 +95,7 @@ export default function Hero() {
                 <span className="text-xs font-bold text-text-primary ml-1">5.0</span>
               </div>
               <span className="text-[10px] uppercase font-bold tracking-wider text-text-secondary">
-                Loved by 50+ local businesses
+                Trusted by 50+ businesses
               </span>
             </div>
           </motion.div>
