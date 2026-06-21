@@ -28,7 +28,7 @@ export default function FreeAuditOffer() {
   };
 
   const handleWhatsappRedirect = () => {
-    const whatsappNumber = "919876543210";
+    const whatsappNumber = "916363217857";
     const text = `Hi Hidden Ants Media! My name is ${formData.name} from ${formData.businessName}. I just submitted a request for a Free Social Media Audit. Here are my details:\n\n- Business: ${formData.businessName}\n- Instagram: ${formData.instagram || "N/A"}\n- WhatsApp: ${formData.whatsapp}\n- Details: ${formData.details || "None"}\n\nLooking forward to hearing from you!`;
     const encoded = encodeURIComponent(text);
     window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");

@@ -20,6 +20,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hiddenants.media"),
   title: "Hidden Ants Media | Premium Creative & Digital Marketing Agency",
   description:
     "Based in Shivamogga, India, Hidden Ants Media is a premium creative agency offering branding, content creation, social media marketing, and high-end video production for businesses that want to grow.",
@@ -47,6 +48,21 @@ export const metadata: Metadata = {
     description:
       "Transform your online presence with professional branding, content creation, and result-oriented digital marketing strategies designed for modern businesses.",
     siteName: "Hidden Ants Media",
+    images: [
+      {
+        url: "/logo.webp",
+        width: 1200,
+        height: 630,
+        alt: "Hidden Ants Media Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hidden Ants Media | Premium Creative & Digital Marketing Agency",
+    description:
+      "Transform your online presence with professional branding, content creation, and result-oriented digital marketing strategies designed for modern businesses.",
+    images: ["/logo.webp"],
   },
 };
 

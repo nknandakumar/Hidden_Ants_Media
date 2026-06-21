@@ -118,7 +118,7 @@ export default function Hero() {
           {/* Buttons */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
             <a
-              href="tel:+919876543210"
+              href="tel:+916363217857"
               className="inline-flex items-center justify-center space-x-2 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-lg shadow-accent-yellow/10"
             >
               <Phone className="w-4 h-4 fill-current" />

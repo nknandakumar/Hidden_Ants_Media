@@ -23,7 +23,7 @@ const InstagramIcon = () => (
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "916363217857";
   const whatsappMessage = "Hi Hidden Ants Media! I want to grow my brand. I'd like to schedule a consultation call.";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -62,7 +62,7 @@ export default function Footer() {
             className="flex justify-center mt-8"
           >
             <a
-              href="tel:+919876543210"
+              href="tel:+916363217857"
               className="group inline-flex items-center space-x-4 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105"
             >
               <span>Schedule A Call</span>
@@ -116,7 +116,7 @@ export default function Footer() {
                   <InstagramIcon />
                 </a>
                 <a
-                  href="mailto:contact@hiddenants.media"
+                  href="mailto:franklinfrank.smg@gmail.com"
                   className="text-text-secondary hover:text-accent-yellow transition-colors duration-200"
                   aria-label="Email"
                 >
@@ -215,14 +215,14 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center space-x-3 text-text-secondary">
                   <Phone className="w-4 h-4 text-accent-yellow shrink-0" />
-                  <a href="tel:+919876543210" className="hover:text-accent-yellow transition-colors">
-                    +91 98765 43210
+                  <a href="tel:+916363217857" className="hover:text-accent-yellow transition-colors">
+                    +91 63632 17857
                   </a>
                 </li>
                 <li className="flex items-center space-x-3 text-text-secondary">
                   <Mail className="w-4 h-4 text-accent-yellow shrink-0" />
-                  <a href="mailto:contact@hiddenants.media" className="hover:text-accent-yellow transition-colors">
-                    contact@hiddenants.media
+                  <a href="mailto:franklinfrank.smg@gmail.com" className="hover:text-accent-yellow transition-colors">
+                    franklinfrank.smg@gmail.com
                   </a>
                 </li>
               </ul>

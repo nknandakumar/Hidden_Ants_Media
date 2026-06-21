@@ -3,7 +3,7 @@
 import React from "react";
 
 export default function WhatsAppButton() {
-  const whatsappNumber = "919876543210"; // Placeholder Indian number
+  const whatsappNumber = "916363217857";
   const message = "Hi Hidden Ants Media! I would like to get a consultation for my business.";
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;

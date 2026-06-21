@@ -85,7 +85,7 @@ export default function Header() {
         {/* Right Side: CTA Button */}
         <div className="hidden md:flex items-center space-x-4">
           <Link
-            href="tel:+919876543210"
+            href="tel:+916363217857"
             className="inline-flex items-center space-x-1.5 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-4 py-3 rounded-full text-[12px] font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105"
           >
             <Phone className="w-3.5 h-3.5 fill-current" />
@@ -133,7 +133,7 @@ export default function Header() {
             );
           })}
           <Link
-            href="tel:+919876543210"
+            href="tel:+916363217857"
             onClick={() => setIsOpen(false)}
             className="inline-flex items-center space-x-2 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-sm font-bold uppercase tracking-widest transition-all"
           >

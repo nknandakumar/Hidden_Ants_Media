@@ -23,7 +23,7 @@ const DoubleSparkles = () => (
 );
 
 export default function ServicesPage() {
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "916363217857";
 
   const services = [
     {
@@ -324,11 +324,11 @@ export default function ServicesPage() {
                     
                     <div className="text-center">
                       <a
-                        href="tel:+919876543210"
+                        href="tel:+916363217857"
                         className="inline-flex items-center justify-center text-[11px] font-bold uppercase tracking-wider text-text-secondary hover:text-accent-yellow transition-colors gap-1.5 py-1"
                       >
                         <Phone className="w-3.5 h-3.5" />
-                        <span>Or Call Us Directly: +91 98765 43210</span>
+                        <span>Or Call Us Directly: +91 63632 17857</span>
                       </a>
                     </div>
                   </div>

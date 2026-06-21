@@ -29,7 +29,7 @@ export default function ContactPage() {
   };
 
   const handleWhatsappRedirect = () => {
-    const whatsappNumber = "919876543210";
+    const whatsappNumber = "916363217857";
     const text = `Hi Hidden Ants Media! My name is ${formData.name} from ${formData.businessName}. I just filled out your contact form for "${formData.service}" services. Here are my details:\n\n- Business: ${formData.businessName}\n- Service Needed: ${formData.service}\n- WhatsApp: ${formData.whatsapp}\n- Message: ${formData.message || "None"}\n\nLooking forward to scheduling a call!`;
     const encoded = encodeURIComponent(text);
     window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
@@ -83,8 +83,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-[10px] uppercase font-semibold text-text-secondary block">Call Us</span>
-                    <a href="tel:+919876543210" className="text-sm font-bold text-text-primary hover:text-accent-yellow transition-colors">
-                      +91 98765 43210
+                    <a href="tel:+916363217857" className="text-sm font-bold text-text-primary hover:text-accent-yellow transition-colors">
+                      +91 63632 17857
                     </a>
                   </div>
                 </div>
@@ -95,8 +95,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-[10px] uppercase font-semibold text-text-secondary block">Email Us</span>
-                    <a href="mailto:contact@hiddenants.media" className="text-sm font-bold text-text-primary hover:text-accent-yellow transition-colors">
-                      contact@hiddenants.media
+                    <a href="mailto:franklinfrank.smg@gmail.com" className="text-sm font-bold text-text-primary hover:text-accent-yellow transition-colors">
+                      franklinfrank.smg@gmail.com
                     </a>
                   </div>
                 </div>

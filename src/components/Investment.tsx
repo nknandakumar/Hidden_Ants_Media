@@ -18,7 +18,7 @@ export default function Investment() {
   const totalPrice = 40000;
 
   // Contact details
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "916363217857";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     "Hi Hidden Ants Media! I want to get started with the Digital Growth Package (Total: ₹40,000). Let's connect!"
   )}`;
@@ -127,11 +127,11 @@ export default function Investment() {
                   
                   <div className="text-center">
                     <a
-                      href="tel:+919876543210"
+                      href="tel:+916363217857"
                       className="inline-flex items-center justify-center text-[11px] font-bold uppercase tracking-wider text-text-secondary hover:text-accent-yellow transition-colors gap-1.5 py-1"
                     >
                       <Phone className="w-3.5 h-3.5" />
-                      <span>Or Call Us Directly: +91 98765 43210</span>
+                      <span>Or Call Us Directly: +91 63632 17857</span>
                     </a>
                   </div>
                 </div>

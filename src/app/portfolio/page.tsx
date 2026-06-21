@@ -450,27 +450,7 @@ export default function PortfolioPage() {
         )}
       </AnimatePresence>
 
-      {/* Work With Us Banner */}
-      <section className="py-16 max-w-5xl mx-auto px-6">
-        <div className="bg-surface thin-border p-8 md:p-12 rounded-3xl text-center space-y-6 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-accent-yellow/[0.01] to-transparent pointer-events-none" />
-          <h3 className="text-2xl md:text-3xl font-bold text-text-primary">
-            Want to see your brand featured here?
-          </h3>
-          <p className="text-text-secondary text-sm max-w-md mx-auto leading-relaxed">
-            Let's sit down for a coffee in Shivamogga and map out a creative video and social campaign for your business.
-          </p>
-          <div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center space-x-2 bg-accent-yellow hover:bg-accent-yellow/90 text-bg-primary px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105"
-            >
-              <span>Start Your Campaign</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 }
