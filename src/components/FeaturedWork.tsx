@@ -1,306 +1,449 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Play, Volume2, VolumeX } from "lucide-react";
+import { 
+  ArrowUpRight, 
+  Play, 
+  Volume2, 
+  VolumeX, 
+  MapPin, 
+  TrendingUp, 
+  Sparkles, 
+  X, 
+  Check,
+  Maximize2
+} from "lucide-react";
+import { caseStudies, CaseStudy } from "@/data/caseStudies";
 
-interface PortfolioItem {
-  id: number;
-  title: string;
-  category: string;
-  subtitle: string;
-  videoUrl: string;
-  link: string;
-  skeletonStyle: "saree" | "mango" | "gym" | "dress" | "fixedrate" | "school";
-}
+const Instagram = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg
+    className={`${className} stroke-current fill-none`}
+    viewBox="0 0 24 24"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
 
-// Sub-component for optimized asynchronous video loading with creative skeletons
-function LazyVideo({
+// Reel component that autoplays (muted) on hover and triggers full-screen lightbox on click
+function ReelVideoCard({
   src,
-  skeletonStyle,
   title,
-  isMuted,
+  onOpenLightbox,
 }: {
   src: string;
-  skeletonStyle: "saree" | "mango" | "gym" | "dress" | "fixedrate" | "school";
   title: string;
-  isMuted: boolean;
+  onOpenLightbox: (videoUrl: string) => void;
 }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [, setIsPlaying] = useState(false);
+  const [, setIsHovered] = useState(false);
 
-  // Intersection Observer to lazy load the video source when close to viewport
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        } else {
-          // Pause playback when component leaves viewport to save resource consumption
-          if (videoRef.current) {
-            videoRef.current.pause();
-          }
-        }
-      },
-      {
-        rootMargin: "200px", // Trigger load before it enters viewport
-        threshold: 0.01,
-      }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  // Control playback based on intersection state and loading completion
-  useEffect(() => {
-    if (isInView && videoRef.current && isLoaded) {
-      videoRef.current.play().catch((err) => {
-        console.log(`Autoplay failed for ${title}:`, err);
-      });
-    }
-  }, [isInView, isLoaded, title]);
-
-  // Synchronize dynamic muting state with the HTML video element
-  useEffect(() => {
+  const handleMouseEnter = () => {
+    setIsHovered(true);
     if (videoRef.current) {
-      videoRef.current.muted = isMuted;
-    }
-  }, [isMuted]);
-
-  // Dynamic colors for creative skeleton styles
-  const getSkeletonGradient = () => {
-    switch (skeletonStyle) {
-      case "saree":
-        return "from-[#200b2c] via-[#0e0316] to-[#05010a]";
-      case "mango":
-        return "from-[#2c1a05] via-[#160c01] to-[#0a0500]";
-      case "gym":
-        return "from-[#0a1829] via-[#040c16] to-[#010408]";
-      case "dress":
-        return "from-[#2d0a1b] via-[#16030c] to-[#0a0105]";
-      case "fixedrate":
-        return "from-[#282109] via-[#130f03] to-[#070501]";
-      case "school":
-        return "from-[#081e13] via-[#030e08] to-[#010603]";
-      default:
-        return "from-[#111111] via-[#090909] to-[#020202]";
+      videoRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.log("Autoplay on hover failed:", err));
     }
   };
 
-  const getSkeletonGlowColor = () => {
-    switch (skeletonStyle) {
-      case "saree":
-        return "bg-purple-500/20 shadow-[0_0_30px_rgba(168,85,247,0.3)] border-purple-500/30";
-      case "mango":
-        return "bg-amber-500/20 shadow-[0_0_30px_rgba(245,158,11,0.3)] border-amber-500/30";
-      case "gym":
-        return "bg-blue-500/20 shadow-[0_0_30px_rgba(59,130,246,0.3)] border-blue-500/30";
-      case "dress":
-        return "bg-pink-500/20 shadow-[0_0_30px_rgba(236,72,153,0.3)] border-pink-500/30";
-      case "fixedrate":
-        return "bg-yellow-500/20 shadow-[0_0_30px_rgba(234,179,8,0.3)] border-yellow-500/30";
-      case "school":
-        return "bg-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.3)] border-emerald-500/30";
-      default:
-        return "bg-white/10 shadow-[0_0_20px_rgba(255,255,255,0.1)] border-white/20";
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setIsPlaying(false);
     }
   };
 
   return (
     <div
-      ref={containerRef}
-      className="relative w-full h-full bg-surface overflow-hidden aspect-[9/16]"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => onOpenLightbox(src)}
+      className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-neutral-900 border border-white/5 cursor-pointer group shadow-xl hover:scale-[1.03] transition-all duration-300"
     >
-      {/* Creative Skeleton Loader */}
-      {!isLoaded && (
-        <div
-          className={`absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b ${getSkeletonGradient()} animate-shimmer`}
-        >
-          {/* Central Pulsating Custom Ring */}
-          <div
-            className={`w-14 h-14 rounded-full flex items-center justify-center border animate-glow-pulse ${getSkeletonGlowColor()}`}
-          >
-            <Play className="w-5 h-5 text-white/50 fill-white/10 ml-0.5" />
+      <video
+        ref={videoRef}
+        src={src}
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      {/* Gradient Vignette overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+
+      {/* Hover action guide */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
+        <div className="w-12 h-12 rounded-full bg-accent-yellow text-bg-primary flex items-center justify-center scale-75 group-hover:scale-100 transition-all duration-300 shadow-[0_0_20px_rgba(255,204,1,0.5)]">
+          <Play className="w-5 h-5 fill-bg-primary ml-0.5" />
+        </div>
+        <span className="text-[10px] text-accent-yellow uppercase tracking-widest font-bold mt-2">
+          Play Reel
+        </span>
+      </div>
+
+      {/* Decorative indicator in bottom-left */}
+      <div className="absolute bottom-3 left-3 flex items-center space-x-1.5 pointer-events-none group-hover:opacity-0 transition-opacity duration-300">
+        <div className="w-1.5 h-1.5 rounded-full bg-accent-yellow animate-pulse" />
+        <span className="text-[9px] uppercase font-mono tracking-widest text-white/60">Preview</span>
+      </div>
+    </div>
+  );
+}
+
+// Lightbox Media Modal for full-screen playback/viewing of reels and posts
+function MediaLightbox({
+  src,
+  onClose,
+}: {
+  src: string;
+  onClose: () => void;
+}) {
+  const [isMuted, setIsMuted] = useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  
+  const isVideo = src.includes("/video/upload/");
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      className="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 z-55 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white border border-white/10 transition-colors"
+      >
+        <X className="w-5 h-5" />
+      </button>
+
+      <div 
+        onClick={(e) => e.stopPropagation()} 
+        className={`relative w-full rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/10 flex items-center justify-center bg-black ${
+          isVideo 
+            ? "max-w-[400px] aspect-[9/16]" 
+            : "max-w-[650px] aspect-square sm:aspect-[4/5]"
+        }`}
+      >
+        {isVideo ? (
+          <>
+            <video
+              ref={videoRef}
+              src={src}
+              loop
+              autoPlay
+              controls
+              muted={isMuted}
+              playsInline
+              className="w-full h-full object-cover"
+            />
+            {/* Sound toggle button */}
+            <button
+              onClick={toggleMute}
+              className="absolute bottom-16 right-4 z-10 w-10 h-10 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white transition-all hover:scale-105"
+            >
+              {isMuted ? (
+                <VolumeX className="w-4.5 h-4.5 text-white/70" />
+              ) : (
+                <Volume2 className="w-4.5 h-4.5 text-accent-yellow animate-pulse" />
+              )}
+            </button>
+          </>
+        ) : (
+          <img
+            src={src}
+            alt="Expanded Post Content"
+            className="w-full h-full object-contain"
+          />
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+// Instagram Phone Mockup Component (renders screenshot directly inside the device frame)
+function InstagramMockup({
+  image,
+  clientName,
+}: {
+  image: string;
+  clientName: string;
+}) {
+  return (
+    <div className="relative mx-auto w-full max-w-[290px] aspect-[9/18.5] bg-black border-6 border-neutral-800 rounded-[2.5rem] shadow-2xl p-2.5 flex flex-col overflow-hidden select-none">
+      {/* Camera Notch/Dynamic Island */}
+      <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-black rounded-full z-30" />
+
+      {/* Screen Container */}
+      <div className="relative w-full h-full rounded-[2rem] bg-[#000000] overflow-hidden border border-neutral-900">
+        <img
+          src={image}
+          alt={clientName}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
+// Self-contained Case Study Card Component to isolate tab selection state
+function CaseStudyCard({
+  study,
+  onOpenLightbox,
+}: {
+  study: CaseStudy;
+  onOpenLightbox: (url: string) => void;
+}) {
+  const [activeTab, setActiveTab] = useState<"reels" | "posts">("reels");
+  const hasPhoto = !!study.image;
+  const hasPosts = !!study.posts && study.posts.length > 0;
+
+  return (
+    <motion.div
+      layout
+      className="relative bg-surface/30 border border-white/5 backdrop-blur-md rounded-3xl p-6 md:p-10 transition-all duration-300 hover:border-accent-yellow/20 shadow-2xl overflow-hidden group"
+    >
+      {/* Background Subtle Gradient Glow */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-accent-yellow/5 rounded-full filter blur-[80px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+        
+        {/* Left Column: IG Profile Mockup (Conditionally shown if photo exists) */}
+        {hasPhoto && study.image ? (
+          <div className="col-span-1 lg:col-span-4 xl:col-span-4 flex justify-center">
+            <InstagramMockup 
+              image={study.image} 
+              clientName={study.clientName} 
+            />
+          </div>
+        ) : null}
+
+        {/* Right Column: Case Study Details & Video/Image Grid */}
+        <div className={`col-span-1 ${hasPhoto ? "lg:col-span-8 xl:col-span-8" : "lg:col-span-12"} flex flex-col h-full`}>
+          
+          {/* Header Info */}
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-0.5 bg-accent-yellow/10 text-accent-yellow text-[10px] font-bold uppercase tracking-widest rounded-full border border-accent-yellow/20">
+                {study.category}
+              </span>
+              {study.instagramHandle && (
+                <a 
+                  href={`https://instagram.com/${study.instagramHandle.substring(1)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-text-secondary hover:text-accent-yellow transition-colors text-[10px] uppercase font-mono tracking-wider"
+                >
+                  <Instagram className="w-3.5 h-3.5" />
+                  <span>{study.instagramHandle}</span>
+                </a>
+              )}
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-instrument italic text-accent-yellow">
+              {study.clientName}
+            </h2>
+            <p className="text-lg font-medium text-text-primary">
+              {study.subtitle}
+            </p>
+            <div className="flex items-center space-x-1.5 text-text-secondary text-xs pt-1">
+              <MapPin className="w-3.5 h-3.5 text-accent-yellow" />
+              <span>{study.location}</span>
+            </div>
+          </div>
+
+          {/* Outcome / Impact Metrics Dashboard (Hidden for now) */}
+          {/* 
+          <div className="mt-8 border-t border-white/5 pt-8">
+            <h3 className="text-xs uppercase tracking-widest text-text-secondary font-bold mb-4 flex items-center space-x-2">
+              <TrendingUp className="w-4 h-4 text-accent-yellow" />
+              <span>Campaign Impact & Outcomes</span>
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              {study.outcome.metrics.map((metric, i) => (
+                <div 
+                  key={i} 
+                  className="bg-neutral-900/60 border border-white/5 rounded-2xl p-4 flex flex-col justify-center relative overflow-hidden group/metric"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent-yellow/[0.02] to-transparent" />
+                  <span className="text-[10px] text-text-secondary uppercase tracking-wider font-semibold">
+                    {metric.label}
+                  </span>
+                  <span className="text-2xl md:text-3xl font-black text-accent-yellow tracking-tight mt-1 group-hover/metric:scale-105 transition-transform duration-300 origin-left">
+                    {metric.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-sm text-text-secondary leading-relaxed bg-neutral-900/20 border border-white/5 p-4 rounded-xl">
+              {study.outcome.text}
+            </p>
+          </div>
+          */}
+
+          {/* Deliverables Section with Grid vs Reels Tabs */}
+          <div className="mt-8 border-t border-white/5 pt-8">
+            <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+              <h3 className="text-xs uppercase tracking-widest text-text-secondary font-bold flex items-center space-x-2">
+                <Sparkles className="w-4 h-4 text-accent-yellow" />
+                <span>Campaign Deliverables</span>
+              </h3>
+
+              {/* Sub-tabs toggler - render only if the case study has static image posts */}
+              {hasPosts && (
+                <div className="flex space-x-1 bg-neutral-950 p-1 rounded-lg border border-white/5 select-none">
+                  <button
+                    onClick={() => setActiveTab("reels")}
+                    className={`px-3 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                      activeTab === "reels"
+                        ? "bg-accent-yellow text-bg-primary shadow"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    Campaign Reels
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("posts")}
+                    className={`px-3 py-1 rounded text-[9px] font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                      activeTab === "posts"
+                        ? "bg-accent-yellow text-bg-primary shadow"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    Static Posts
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Campaign Reels Display */}
+            {activeTab === "reels" && (
+              <div className={`grid gap-4 ${
+                study.videos.length === 1 
+                  ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 max-w-[200px]" 
+                  : "grid-cols-2 sm:grid-cols-3 md:grid-cols-3"
+              }`}>
+                {study.videos.map((video, idx) => (
+                  <ReelVideoCard
+                    key={idx}
+                    src={video}
+                    title={`${study.clientName} Reel ${idx + 1}`}
+                    onOpenLightbox={onOpenLightbox}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Static Grid Posts Display */}
+            {activeTab === "posts" && hasPosts && study.posts && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
+                {study.posts.map((post, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => onOpenLightbox(post)}
+                    className="relative aspect-square w-full rounded-2xl overflow-hidden bg-neutral-900 border border-white/5 cursor-pointer group shadow-xl hover:scale-[1.03] transition-all duration-300"
+                  >
+                    <img
+                      src={post}
+                      alt={`${study.clientName} Post ${idx + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-300" />
+                    
+                    {/* Hover overlay guide */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
+                      <div className="w-10 h-10 rounded-full bg-accent-yellow text-bg-primary flex items-center justify-center scale-75 group-hover:scale-100 transition-all duration-300 shadow-[0_0_20px_rgba(255,204,1,0.5)]">
+                        <Maximize2 className="w-4 h-4 stroke-[3px]" />
+                      </div>
+                      <span className="text-[9px] text-accent-yellow uppercase tracking-widest font-bold mt-2">
+                        Zoom Post
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
         </div>
-      )}
 
-      {/* Actual Video Element */}
-      {isInView && (
-        <video
-          ref={videoRef}
-          src={src}
-          loop
-          muted={isMuted}
-          playsInline
-          autoPlay
-          onLoadedData={() => setIsLoaded(true)}
-          className={`w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      )}
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
 export default function FeaturedWork() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [unmutedVideoId, setUnmutedVideoId] = useState<number | null>(null);
-
-  // Mute any playing audio if the category filter changes
-  useEffect(() => {
-    setUnmutedVideoId(null);
-  }, [activeFilter]);
+  const [lightboxMedia, setLightboxMedia] = useState<string | null>(null);
 
   const categories = ["All", "Reels", "Campaigns", "Branding", "Video Production"];
 
-  const items: PortfolioItem[] = [
-    {
-      id: 1,
-      title: "Saree Boutique Showcase",
-      category: "Reels",
-      subtitle: "Luxury Ethnic Wear Launch Campaign",
-      videoUrl: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286961/saree_b6axdf.mp4",
-      link: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286961/saree_b6axdf.mp4",
-      skeletonStyle: "saree",
-    },
-    {
-      id: 2,
-      title: "Shivamogga Mango Festival",
-      category: "Campaigns",
-      subtitle: "Food & Agriculture Event Promotion",
-      videoUrl: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286957/mangofestival_l6jz7q.mp4",
-      link: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286957/mangofestival_l6jz7q.mp4",
-      skeletonStyle: "mango",
-    },
-    {
-      id: 3,
-      title: "Iron Elite Fitness Hub",
-      category: "Video Production",
-      subtitle: "High-Octane Gym Promotional Video",
-      videoUrl: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286954/gym_dgefcq.mp4",
-      link: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286954/gym_dgefcq.mp4",
-      skeletonStyle: "gym",
-    },
-    {
-      id: 4,
-      title: "Zara Inspired Dress Launch",
-      category: "Reels",
-      subtitle: "Modern Fashion Collection Video",
-      videoUrl: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286961/dress_puu2me.mp4",
-      link: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286961/dress_puu2me.mp4",
-      skeletonStyle: "dress",
-    },
-    {
-      id: 5,
-      title: "Value Hub Store Offers",
-      category: "Branding",
-      subtitle: "Retail Campaign & Offer Showcase",
-      videoUrl: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286971/140rsfixedrate_gttjrt.mp4",
-      link: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781286971/140rsfixedrate_gttjrt.mp4",
-      skeletonStyle: "fixedrate",
-    },
-    {
-      id: 6,
-      title: "Greenwood International School",
-      category: "Campaigns",
-      subtitle: "Admissions Ad & Campus Walkthrough",
-      videoUrl: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781287000/school_darmfs.mp4",
-      link: "https://res.cloudinary.com/dokrpo5fl/video/upload/v1781287000/school_darmfs.mp4",
-      skeletonStyle: "school",
-    },
-  ];
+  // Slice first 3 case studies to showcase on homepage
+  const featuredCaseStudies = caseStudies.slice(0, 3);
 
-  const filteredItems =
-    activeFilter === "All"
-      ? items
-      : items.filter((item) => item.category === activeFilter);
+  const filteredItems = activeFilter === "All"
+    ? featuredCaseStudies
+    : featuredCaseStudies.filter((item) => item.category === activeFilter);
 
   return (
     <section className="bg-bg-primary py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
+        
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <span className="inline-block px-3 py-1 mb-4 border border-accent-yellow/30 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-yellow">
-            Case Studies
+            Recent Work
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-text-primary">
-            Recent{" "}
+            Featured{" "}
             <span className="font-instrument italic text-accent-yellow">
-              Work
+              Case Studies
             </span>
           </h2>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-2 mb-16 md:mb-24">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveFilter(category)}
-              className={`px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider transition-all duration-300 ${
-                activeFilter === category
-                  ? "bg-accent-yellow text-bg-primary font-semibold"
-                  : "bg-surface text-text-secondary hover:text-text-primary thin-border"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
 
-        {/* Vertical Portrait Reels Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Case Studies Display */}
+        <div className="space-y-16">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => {
-              const isMuted = unmutedVideoId !== item.id;
-              return (
-                <motion.div
-                  layout
-                  key={item.id}
-                  onClick={() => {
-                    if (unmutedVideoId === item.id) {
-                      setUnmutedVideoId(null);
-                    } else {
-                      setUnmutedVideoId(item.id);
-                    }
-                  }}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4 }}
-                  className="relative group overflow-hidden rounded-xl bg-surface thin-border cursor-pointer aspect-[9/16] block"
-                >
-                  {/* Lazy Loaded optimized video stream */}
-                  <LazyVideo
-                    src={item.videoUrl}
-                    skeletonStyle={item.skeletonStyle}
-                    title={item.title}
-                    isMuted={isMuted}
-                  />
-
-                  {/* Sound Toggle Indicator */}
-                  <div className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center border border-white/10 text-white transition-all duration-300 hover:scale-110">
-                    {isMuted ? (
-                      <VolumeX className="w-4.5 h-4.5 text-white/70" />
-                    ) : (
-                      <Volume2 className="w-4.5 h-4.5 text-accent-yellow animate-pulse" />
-                    )}
-                  </div>
-                </motion.div>
-              );
-            })}
+            {filteredItems.map((study, idx) => (
+              <motion.div
+                layout
+                key={study.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                <CaseStudyCard 
+                  study={study} 
+                  onOpenLightbox={(url) => setLightboxMedia(url)}
+                />
+              </motion.div>
+            ))}
           </AnimatePresence>
         </div>
 
@@ -315,6 +458,17 @@ export default function FeaturedWork() {
           </Link>
         </div>
       </div>
+
+      {/* Lightbox Media Player */}
+      <AnimatePresence>
+        {lightboxMedia && (
+          <MediaLightbox 
+            src={lightboxMedia} 
+            onClose={() => setLightboxMedia(null)} 
+          />
+        )}
+      </AnimatePresence>
+
     </section>
   );
 }
