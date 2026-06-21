@@ -246,13 +246,13 @@ export default function Footer() {
             </div>
             
             {/* Creator Credits - Rayvok linking to rayvok.com */}
-            <div>
-              Designed & Developed by{" "}
+            <div className="text-md">
+             Website by{" "}
               <a
                 href="https://rayvok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-text-primary hover:text-accent-yellow transition-colors font-bold uppercase tracking-wider text-[10px]"
+                className="text-text-primary hover:text-accent-yellow border-b   transition-colors font-bold uppercase tracking-wider text-[10px]"
               >
                 Rayvok
               </a>
