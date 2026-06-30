@@ -20,16 +20,19 @@ export default function FreeAuditOffer() {
     if (!formData.name || !formData.businessName || !formData.whatsapp) return;
 
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1500);
+    
+    const whatsappNumber = "916363217857";
+    const text = `Hi Hidden Ants Media! My name is ${formData.name} from ${formData.businessName}. I just submitted a request for Social Media Audit. Here are my details:\n\n- Business: ${formData.businessName}\n- Instagram: ${formData.instagram || "N/A"}\n- WhatsApp: ${formData.whatsapp}\n- Details: ${formData.details || "None"}\n\nLooking forward to hearing from you!`;
+    const encoded = encodeURIComponent(text);
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   const handleWhatsappRedirect = () => {
     const whatsappNumber = "916363217857";
-    const text = `Hi Hidden Ants Media! My name is ${formData.name} from ${formData.businessName}. I just submitted a request for a Free Social Media Audit. Here are my details:\n\n- Business: ${formData.businessName}\n- Instagram: ${formData.instagram || "N/A"}\n- WhatsApp: ${formData.whatsapp}\n- Details: ${formData.details || "None"}\n\nLooking forward to hearing from you!`;
+    const text = `Hi Hidden Ants Media! My name is ${formData.name} from ${formData.businessName}. I just submitted a request for a Social Media Audit. Here are my details:\n\n- Business: ${formData.businessName}\n- Instagram: ${formData.instagram || "N/A"}\n- WhatsApp: ${formData.whatsapp}\n- Details: ${formData.details || "None"}\n\nLooking forward to hearing from you!`;
     const encoded = encodeURIComponent(text);
     window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
   };
@@ -45,7 +48,7 @@ export default function FreeAuditOffer() {
               Exclusive Value
             </span>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight leading-none text-text-primary text-center lg:text-left">
-              Get A Free Social <span className="font-instrument italic text-accent-yellow">Media Audit</span>
+              Get A Social <span className="font-instrument italic text-accent-yellow">Media Audit</span>
             </h2>
             <p className="text-text-secondary text-sm md:text-base leading-relaxed max-w-lg text-center lg:text-left mx-auto lg:mx-0">
               Wondering why your competitor gets all the attention? We will personally audit your Instagram, content quality, brand consistency, and lead conversion funnel. 
@@ -179,18 +182,6 @@ export default function FreeAuditOffer() {
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-white/5 space-y-4">
-                    <p className="text-xs text-text-secondary">
-                      Want to skip the line? Send your details directly to our team via WhatsApp for an instant response.
-                    </p>
-                    <button
-                      onClick={handleWhatsappRedirect}
-                      className="inline-flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200"
-                    >
-                      <span>Send via WhatsApp</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -21,11 +21,14 @@ export default function ContactPage() {
     if (!formData.name || !formData.whatsapp || !formData.businessName) return;
 
     setIsSubmitting(true);
-    // Simulate submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1500);
+    
+    const whatsappNumber = "916363217857";
+    const text = `Hi Hidden Ants Media! My name is ${formData.name} from ${formData.businessName}. I just filled out your contact form for "${formData.service}" services. Here are my details:\n\n- Business: ${formData.businessName}\n- Service Needed: ${formData.service}\n- WhatsApp: ${formData.whatsapp}\n- Message: ${formData.message || "None"}\n\nLooking forward to scheduling a call!`;
+    const encoded = encodeURIComponent(text);
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   const handleWhatsappRedirect = () => {
@@ -95,8 +98,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="text-[10px] uppercase font-semibold text-text-secondary block">Email Us</span>
-                    <a href="mailto:franklinfrank.smg@gmail.com" className="text-sm font-bold text-text-primary hover:text-accent-yellow transition-colors">
-                      franklinfrank.smg@gmail.com
+                    <a href="mailto:hiddenantsmedia04@gmail.com" className="text-sm font-bold text-text-primary hover:text-accent-yellow transition-colors">
+                      hiddenantsmedia04@gmail.com
                     </a>
                   </div>
                 </div>
@@ -255,7 +258,7 @@ export default function ContactPage() {
                   key="contact-success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12 space-y-6"
+                  className="text-center py-28 flex flex-col justify-center items-center space-y-6"
                 >
                   <div className="w-16 h-16 bg-accent-yellow/10 rounded-full flex items-center justify-center mx-auto text-accent-yellow">
                     <CheckCircle2 className="w-8 h-8" />
@@ -270,18 +273,6 @@ export default function ContactPage() {
                     </p>
                   </div>
 
-                  <div className="pt-6 border-t border-white/5 space-y-4">
-                    <p className="text-xs text-text-secondary">
-                      Want to connect instantly? Click below to send your message details directly to our WhatsApp chat.
-                    </p>
-                    <button
-                      onClick={handleWhatsappRedirect}
-                      className="inline-flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-3  rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200"
-                    >
-                      <span>Open WhatsApp Chat</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

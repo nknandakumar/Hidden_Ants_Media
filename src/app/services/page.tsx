@@ -114,7 +114,7 @@ export default function ServicesPage() {
   ];
 
   // Investment Section Inclusions
-  const growthPackagePrice = 40000;
+  const growthPackagePrice = 15000;
   const packageFeatures = [
     "Logo Design",
     "Brand Poster Designs",
@@ -134,7 +134,7 @@ export default function ServicesPage() {
   ];
 
   const packageWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hi Hidden Ants Media! I want to get started with the Digital Growth Package (Total: ₹40,000). Let's connect!"
+    "Hi Hidden Ants Media! I want to get started with the Digital Growth Package (₹15,000/month). Let's connect!"
   )}`;
 
   return (
@@ -298,7 +298,7 @@ export default function ServicesPage() {
                       Digital Growth Package
                     </h3>
                     <p className="text-text-secondary text-xs leading-relaxed mb-6">
-                      A complete starter pack to grow your brand online. No hidden recurring charges.
+                      A complete growth package to build and scale your brand online, month after month.
                     </p>
 
                     <div className="flex items-baseline mb-6 border-t border-white/5 pt-6">
@@ -306,7 +306,7 @@ export default function ServicesPage() {
                         ₹{growthPackagePrice.toLocaleString("en-IN")}
                       </span>
                       <span className="text-xs text-text-secondary ml-1.5 font-medium">
-                        /one-time
+                        /month
                       </span>
                     </div>
                   </div>

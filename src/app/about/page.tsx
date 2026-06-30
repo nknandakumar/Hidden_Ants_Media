@@ -45,7 +45,7 @@ export default function AboutPage() {
   const founderImage = "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781347759/8ca01b99-e52a-4c0b-8b87-34a372d2474b_cxqerz.png";
   const igProfilePic = "https://res.cloudinary.com/dokrpo5fl/image/upload/v1781349434/Screenshot_20260613_125857_Instagram_ctvymo.jpg";
   const founderPhone = "+916363217857";
-  const founderEmail = "franklinfrank.smg@gmail.com";
+  const founderEmail = "hiddenantsmedia04@gmail.com";
   const founderInstagram = "https://instagram.com/f_block_14";
 
   const whyChooseUsCards = [

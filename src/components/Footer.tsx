@@ -116,7 +116,7 @@ export default function Footer() {
                   <InstagramIcon />
                 </a>
                 <a
-                  href="mailto:franklinfrank.smg@gmail.com"
+                  href="mailto:hiddenantsmedia04@gmail.com"
                   className="text-text-secondary hover:text-accent-yellow transition-colors duration-200"
                   aria-label="Email"
                 >
@@ -221,8 +221,8 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center space-x-3 text-text-secondary">
                   <Mail className="w-4 h-4 text-accent-yellow shrink-0" />
-                  <a href="mailto:franklinfrank.smg@gmail.com" className="hover:text-accent-yellow transition-colors">
-                    franklinfrank.smg@gmail.com
+                  <a href="mailto:hiddenantsmedia04@gmail.com" className="hover:text-accent-yellow transition-colors">
+                    hiddenantsmedia04@gmail.com
                   </a>
                 </li>
               </ul>

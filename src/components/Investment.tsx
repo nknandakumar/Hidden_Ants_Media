@@ -15,12 +15,12 @@ const DoubleSparkles = () => (
 );
 
 export default function Investment() {
-  const totalPrice = 40000;
+  const totalPrice = 15000;
 
   // Contact details
   const whatsappNumber = "916363217857";
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hi Hidden Ants Media! I want to get started with the Digital Growth Package (Total: ₹40,000). Let's connect!"
+    "Hi Hidden Ants Media! I want to get started with the Digital Growth Package (₹15,000/month). Let's connect!"
   )}`;
 
   // Features list from Image 2
@@ -99,7 +99,7 @@ export default function Investment() {
                     Digital Growth Package
                   </h3>
                   <p className="text-text-secondary text-xs leading-relaxed mb-6">
-                    A complete starter pack to grow your brand online. No hidden recurring charges.
+                    A complete growth package to build and scale your brand online, month after month.
                   </p>
 
                   {/* Pricing Display */}
@@ -108,7 +108,7 @@ export default function Investment() {
                       ₹{totalPrice.toLocaleString("en-IN")}
                     </span>
                     <span className="text-xs text-text-secondary ml-1.5 font-medium">
-                      /one-time
+                      /month
                     </span>
                   </div>
                 </div>
