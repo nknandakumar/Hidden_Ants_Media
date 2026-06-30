@@ -21,9 +21,9 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hiddenants.media"),
-  title: "Hidden Ants Media | Premium Creative & Digital Marketing Agency",
+  title: "Hidden Ants Media | Creative & Digital Marketing Agency",
   description:
-    "Based in Shivamogga, India, Hidden Ants Media is a premium creative agency offering branding, content creation, social media marketing, and high-end video production for businesses that want to grow.",
+    "Based in Shivamogga, India, Hidden Ants Media is a creative agency offering branding, content creation, social media marketing, and high-end video production.",
   icons: {
     icon: "/logo.webp",
     shortcut: "/logo.webp",
@@ -44,25 +44,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://hiddenants.media",
-    title: "Hidden Ants Media | Premium Creative & Digital Marketing Agency",
+    title: "Hidden Ants Media | Creative & Digital Marketing Agency",
     description:
-      "Transform your online presence with professional branding, content creation, and result-oriented digital marketing strategies designed for modern businesses.",
+      "Elevate your brand with professional branding, content creation, and digital marketing from Hidden Ants Media.",
     siteName: "Hidden Ants Media",
     images: [
       {
-        url: "/logo.webp",
+        url: "https://res.cloudinary.com/dokrpo5fl/image/upload/v1782832902/Creative_Digital_marketing_Agency_ljhuda.png",
         width: 1200,
         height: 630,
-        alt: "Hidden Ants Media Logo",
+        alt: "Hidden Ants Media - Creative & Digital Marketing Agency",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hidden Ants Media | Premium Creative & Digital Marketing Agency",
+    title: "Hidden Ants Media | Creative & Digital Marketing Agency",
     description:
-      "Transform your online presence with professional branding, content creation, and result-oriented digital marketing strategies designed for modern businesses.",
-    images: ["/logo.webp"],
+      "Elevate your brand with professional branding, content creation, and digital marketing from Hidden Ants Media.",
+    images: ["https://res.cloudinary.com/dokrpo5fl/image/upload/v1782832902/Creative_Digital_marketing_Agency_ljhuda.png"],
   },
 };
 
